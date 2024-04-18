@@ -137,9 +137,9 @@ namespace Project.Models
 
         public static bool CheckPassword(string username, string password)
         {
-                var mongoCollection = database.GetCollection<BsonDocument>("User");
+                var mongotable = database.GetCollection<BsonDocument>("User");
                 var filter = Builders<BsonDocument>.Filter.Eq("Username", username);
-                var existingRecord = mongoCollection.Find(filter).FirstOrDefault();
+                var existingRecord = mongotable.Find(filter).FirstOrDefault();
 
 
             if (existingRecord != null)
@@ -150,6 +150,15 @@ namespace Project.Models
             }
             else {return false;}   
     }
+
+        public static bool CheckRole(string username)
+        {
+            var mongotable = database.GetCollection<User>("User");
+            var filter = Builders<User>.Filter.Eq("Username", username);
+            var user = mongotable.Find(filter).FirstOrDefault();
+
+            return (bool)user.IsAdmin;
+        }
 
 
          private static bool IsObjectIdEmpty(ObjectId objectid)

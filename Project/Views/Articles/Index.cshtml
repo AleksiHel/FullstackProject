@@ -1,0 +1,34 @@
+﻿@model List<Article>
+
+@if (User.IsInRole("admin"))
+{
+    <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3">Create new post</button></a>
+}
+
+
+<div class="row row-cols-1 row-cols-lg-3 g-4">
+
+    @foreach (var x in Model)
+        {
+            string contentShort = x.Content.Length > 400 ? x.Content.Substring(0, 390) + "..." : x.Content;
+        string titleShort = x.Title.Length > 45 ? x.Title.Substring(0, 45) + "..." : x.Title;
+
+        <div class="col">
+            <div class="card h-100 border-0">
+                <img src="images/intro.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h2 class="card-title">@titleShort</h2>
+                    <p class="lead">@x.PublishingDate.ToShortDateString()</p>
+                    <p class="card-text">@Html.Raw(@contentShort)</p>
+                    <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3 justify-content-end">Read</button></a>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

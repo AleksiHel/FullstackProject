@@ -18,13 +18,15 @@ namespace Project.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(User model)
         {
+
             bool isAuthenticated = DatabaseManipulator.CheckPassword(model.Username.ToLower(), model.Password);
 
             if (isAuthenticated)
             {
                 var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Username.ToLower()) };
 
-                if (model.IsAdmin == true)
+
+                if (DatabaseManipulator.CheckRole(model.Username.ToLower()))
                 {
                     claims.Add(new Claim(ClaimTypes.Role, "admin"));
                 }
@@ -42,6 +44,7 @@ namespace Project.Controllers
                 HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity), authProperties);
+
 
                 return RedirectToAction("Index", "Home");
             }

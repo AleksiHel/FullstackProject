@@ -1,0 +1,46 @@
+﻿@model Article
+
+
+<h1 class="mb-3">Create new post</h1>
+<form asp-controller="Articles" asp-action="NewPost" method="post" class="d-flex flex-column">
+<div class="form-group p-1 col-xl-4  mb-3">
+    <label asp-for="Title" class="mb-3"><strong>Title</strong></label>
+    <input asp-for="Title" class="form-control input-lg" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+
+    <div class="form-group p-1 col-xl-2">
+        <label asp-for="PublishingDate" class="mb-3"><strong>Choose publishing date</strong></label>
+        <input asp-for="PublishingDate" type="date" class="form-control mb-3" id="dateInput">
+        <span asp-validation-for="PublishingDate" class="text-danger"></span>
+    </div>
+
+<textarea asp-for="Content" name="Content" id="MyEditor"></textarea>
+
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Post</button>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Save draft</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+<link href="~/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/js/froala_editor.pkgd.min.js"></script>
+<script>
+    new FroalaEditor('#MyEditor', {
+        height: 600,  // Set the height in pixels
+        heightMin: 300  // Minimum height in pixels
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date();
+        var formattedDate = today.toISOString().substr(0, 10);
+        var dateInput = document.getElementById("dateInput");
+        dateInput.value = formattedDate;
+    });
+</script>

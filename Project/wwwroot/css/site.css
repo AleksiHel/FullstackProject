@@ -15,8 +15,42 @@ html {
 html {
   position: relative;
   min-height: 100%;
+
 }
 
 body {
   margin-bottom: 60px;
+
+  }
+
+h1 {
+    font-family: Rubik Medium;
 }
+
+p {
+    font-family: Open sans light;
+}
+
+.image-container {
+    position: relative;
+    text-align: center;
+    max-height: 800px; /* Adjust this value based on your needs */
+    overflow: hidden; /* Ensures nothing goes outside the bounds of the container */
+}
+
+.img-fluid {
+    width: 100%; /* Ensures the image is responsive */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 100%; /* Make sure the image does not exceed the container height */
+}
+
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Change as needed */
+    /* Additional styling for text */
+    text-shadow: 2px 2px 4px #000000; /* Optional: for better visibility on images */
+}
+

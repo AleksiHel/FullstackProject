@@ -1,0 +1,25 @@
+﻿<h1 class="mb-3">Edit post</h1>
+
+<div class="form-group p-1 col-xl-4  mb-3">
+    <label><strong>Title</strong></label>
+    <input class="form-control input-lg" />
+    <span class="text-danger"></span>
+</div>
+
+<div id="editor" class="mb-3"></div>
+
+<button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Save draft</button>
+<br />
+<button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Post</button>
+
+
+
+<link href="~/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/js/froala_editor.pkgd.min.js"></script>
+<script>
+    new FroalaEditor('#editor', {
+        height: 600,  // Set the height in pixels
+        heightMin: 300  // Minimum height in pixels
+    });
+
+</script>
