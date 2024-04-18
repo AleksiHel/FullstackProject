@@ -119,6 +119,14 @@ namespace Project.Models
             return testi;
         }
 
+        public static Article GetByTitle<Article>(string title)
+        {
+            var mongotable = database.GetCollection<Article>("Article");
+            var filter = Builders<Article>.Filter.Eq("Title", title);
+            var testi = mongotable.Find(filter).FirstOrDefault();
+            return testi;
+        }
+
         public static List<T> GetAllById<T>(ObjectId ItemId, string table)
         {
             var mongotable = database.GetCollection<T>(table);

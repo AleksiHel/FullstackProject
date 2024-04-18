@@ -1,21 +1,43 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using Project.Models;
 
 namespace Project.Controllers
 {
+    
     public class ArticlesController : Controller
     {
-
         public IActionResult Index()
         {
             var Articles = DatabaseManipulator.GetAll<Article>("Article").OrderByDescending(x => x.PublishingDate).ToList();
 
 
+
+
+
+
             return View(Articles);
         }
 
-        [Authorize]
+        public IActionResult Read(string ArticleName)
+        {
+            if (ArticleName != null)
+            {
+
+                string notFormattedTitle = ArticleName.Replace("-", " ");
+
+                var ArticleMongo = DatabaseManipulator.GetByTitle<Article>(notFormattedTitle);
+
+                return View(ArticleMongo);
+            }
+
+            return View();
+
+
+        }
+
+        [Authorize(Roles = "admin")]
         public IActionResult NewPost()
         {
             return View();
@@ -48,5 +70,6 @@ namespace Project.Controllers
 
             return RedirectToAction("");
         }
+
     }
 }

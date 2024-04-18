@@ -1,17 +1,25 @@
-﻿@model List<Article>
+﻿@using HtmlAgilityPack;
+
+@model List<Article>
+
 
 @if (User.IsInRole("admin"))
 {
     <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3">Create new post</button></a>
 }
 
-
-<div class="row row-cols-1 row-cols-lg-3 g-4">
+@if (Model.Count > 0)
+{
+    <div class="row row-cols-1 row-cols-lg-3 g-4">
 
     @foreach (var x in Model)
         {
-            string contentShort = x.Content.Length > 400 ? x.Content.Substring(0, 390) + "..." : x.Content;
-        string titleShort = x.Title.Length > 45 ? x.Title.Substring(0, 45) + "..." : x.Title;
+
+
+            string contentShort = HtmlTruncator.TruncateHtml(x.Content, 390);
+            string titleShort = HtmlTruncator.TruncateHtml(x.Title, 45);
+            string titleFormatted = x.Title.Replace(" ", "-");
+
 
         <div class="col">
             <div class="card h-100 border-0">
@@ -20,7 +28,7 @@
                     <h2 class="card-title">@titleShort</h2>
                     <p class="lead">@x.PublishingDate.ToShortDateString()</p>
                     <p class="card-text">@Html.Raw(@contentShort)</p>
-                    <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3 justify-content-end">Read</button></a>
+                    <a href="Articles/Read?ArticleName=@titleFormatted"><button type="button" class="btn btn-dark mb-3 justify-content-end">Read</button></a>
                     @if (User.IsInRole("admin"))
                     {
                         <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
@@ -32,3 +40,6 @@
         </div>
     }
 </div>
+
+} else {<p>No articles found!</p>}
+
