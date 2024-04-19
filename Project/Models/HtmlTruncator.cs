@@ -2,6 +2,11 @@
 using System.Linq;
 using System.Text;
 
+
+// Styles articles so that it takes the formatting away so it doesn't break the nice layout.
+// sus code ctrl c + ctrl v
+// TODO: check it and make it neater
+
 public class HtmlTruncator
 {
     public static string TruncateHtml(string html, int maxLength, string continuation = "...")

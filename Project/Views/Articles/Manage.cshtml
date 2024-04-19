@@ -1,0 +1,40 @@
+﻿@model List<Article>
+
+<h1 class="mt-5">Manage posts</h1>
+
+
+<div>
+    @foreach(var article in Model)
+    {
+        string contentShort = HtmlTruncator.TruncateHtml(article.Content, 600);
+
+
+        <div class="card mb-3 border-0 h-100">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="~/images/intro.webp" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>@article.Title</strong></h5>
+                        <p class="card-text"><small>@article.PublishingDate.ToShortDateString()</small></p>
+                        <div class="form-check">
+                            <div id="checkboxStyling">
+
+                                <label class="form-check-label" for="flexCheckDefault"><small>Is public?</small></label>
+                                <input class="form-check-input" type="checkbox" disabled @(article.IsPublic ? "checked" : "") />
+
+
+                        </div>
+                        </div>
+
+
+                        <p class="card-text">@Html.Raw(contentShort)</p>
+                        <a href="edit?articleId=@article._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

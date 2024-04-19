@@ -54,3 +54,25 @@ p {
     text-shadow: 2px 2px 4px #000000; /* Optional: for better visibility on images */
 }
 
+/* Targeting the input that is disabled */
+.form-check-input:checked {
+    opacity: 1 !important;
+    background-color: black !important;
+    border-color: black !important;
+
+}
+
+
+
+
+/* Targeting the label associated with the disabled input */
+.form-check-label {
+    color: black; /* Ensuring label text isn't faded */
+    opacity: 1 !important; /* Ensuring label isn't transparent */
+}
+
+.checkboxStyling input[type="checkbox"] {
+    width: 2em;
+    height: 2em;
+}
+

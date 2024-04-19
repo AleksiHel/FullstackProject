@@ -6,11 +6,15 @@
 @if (User.IsInRole("admin"))
 {
     <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3">Create new post</button></a>
+    <a href="articles/manage"><button type="button" class="btn btn-dark mb-3">Manage posts</button></a>
+
 }
+
+<h1 class="mt-5 text-center">Articles</h1>
 
 @if (Model.Count > 0)
 {
-    <div class="row row-cols-1 row-cols-lg-3 g-4">
+    <div class="row row-cols-1 row-cols-lg-3 g-4 mt-5">
 
     @foreach (var x in Model)
         {
@@ -29,12 +33,6 @@
                     <p class="lead">@x.PublishingDate.ToShortDateString()</p>
                     <p class="card-text">@Html.Raw(@contentShort)</p>
                     <a href="Articles/Read?ArticleName=@titleFormatted"><button type="button" class="btn btn-dark mb-3 justify-content-end">Read</button></a>
-                    @if (User.IsInRole("admin"))
-                    {
-                        <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
-
-                    }
-
                 </div>
             </div>
         </div>

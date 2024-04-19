@@ -1,14 +1,17 @@
 ﻿@model Article
 
 
-<h1 class="mb-3">Create new post</h1>
-<form asp-controller="Articles" asp-action="NewPost" method="post" class="d-flex flex-column">
+<h1 class="mb-3">Edit post</h1>
+<form asp-controller="Articles" asp-action="Edit" method="post" class="d-flex flex-column">
+    <input asp-for="_id" type="hidden" value="@Model._id">
+    <input asp-for="AuthorId" type="hidden" value="@Model.AuthorId"/>
 
-<div class="form-group p-1 col-xl-4  mb-3">
-    <label asp-for="Title" class="mb-3"><strong>Title</strong></label>
-    <input asp-for="Title" class="form-control input-lg" />
-    <span asp-validation-for="Title" class="text-danger"></span>
-</div>
+
+    <div class="form-group p-1 col-xl-4  mb-3">
+        <label asp-for="Title" class="mb-3"><strong>Title</strong></label>
+        <input asp-for="Title" class="form-control input-lg" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
 
     <div class="form-group p-1 col-xl-2">
         <label asp-for="PublishingDate" class="mb-3"><strong>Choose publishing date</strong></label>
@@ -17,17 +20,17 @@
     </div>
 
     <div class="checkboxStyling">
-    <div class="form-group p-1"
-        <label asp-for="IsPublic" class="mb-3"><strong>Is public?</strong></label>
-                    <i class="bi bi-question-circle ms-2 fs-4" data-bs-toggle="tooltip" data-placement="right"
+        <div class="form-group p-1">
+            <label asp-for="IsPublic" class="mb-3"><strong>Is public?</strong></label>
+            <i class="bi bi-question-circle ms-2 fs-4" data-bs-toggle="tooltip" data-placement="right"
             title="Article will be saved as draft if you don't want to publish right away">
             </i>
-        <input asp-for="IsPublic" class="form-control mb-3 form-check-input" type="checkbox">
-        <span asp-validation-for="IsPublic" class="text-danger"></span>
-</div>
+            <input asp-for="IsPublic" class="form-control mb-3 form-check-input" type="checkbox">
+            <span asp-validation-for="IsPublic" class="text-danger"></span>
+        </div>
     </div>
 
-<textarea asp-for="Content" name="Content" id="MyEditor"></textarea>
+<textarea asp-for="Content" name="Content" id="MyEditor">@Model.Content</textarea>
 
 
 
@@ -39,8 +42,7 @@
 
         </div>
     </div>
-                       <div class="form-check">
-
+    <div class="form-check">
     </div>
 </form>
 <link href="~/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
@@ -51,14 +53,17 @@
         heightMin: 300  // Minimum height in pixels
     });
 
+
     document.addEventListener("DOMContentLoaded", function () {
+        var modelDate = '@Model.PublishingDate.ToString("yyyy-MM-dd")';
+
         var today = new Date();
         var formattedDate = today.toISOString().substr(0, 10);
         var dateInput = document.getElementById("dateInput");
-        dateInput.value = formattedDate;
+
         dateInput.min = formattedDate;
 
-
+        dateInput.value = modelDate;
     });
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -67,5 +72,4 @@
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
     });
-
 </script>

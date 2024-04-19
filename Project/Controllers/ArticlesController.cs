@@ -10,12 +10,7 @@ namespace Project.Controllers
     {
         public IActionResult Index()
         {
-            var Articles = DatabaseManipulator.GetAll<Article>("Article").OrderByDescending(x => x.PublishingDate).ToList();
-
-
-
-
-
+            var Articles = DatabaseManipulator.GetAll<Article>("Article").Where(article => article.IsPublic && article.PublishingDate <= DateTime.Today).ToList();
 
             return View(Articles);
         }
@@ -29,7 +24,13 @@ namespace Project.Controllers
 
                 var ArticleMongo = DatabaseManipulator.GetByTitle<Article>(notFormattedTitle);
 
-                return View(ArticleMongo);
+                // no reading non public posts with get
+                if (ArticleMongo.IsPublic)
+                {
+                    return View(ArticleMongo);
+
+                }
+
             }
 
             return View();
@@ -57,19 +58,69 @@ namespace Project.Controllers
 
             var loggedInUserId = DatabaseManipulator.GetUsersID(User.Identity.Name);
 
-
             var Article = new Article
             {
                 AuthorId = loggedInUserId,
                 Title = model.Title,
                 Content = model.Content,
                 PublishingDate = model.PublishingDate,
+                IsPublic = model.IsPublic
             };
 
             DatabaseManipulator.Save(Article);
 
             return RedirectToAction("");
         }
+        [Authorize]
 
+        public IActionResult Manage()
+        {
+
+            var Articles = DatabaseManipulator.GetAll<Article>("Article").OrderByDescending(x => x.PublishingDate).ToList();
+
+
+            return View(Articles);
+        }
+
+        [Authorize]
+
+        public IActionResult Edit(ObjectId articleID)
+        {
+            if (articleID != ObjectId.Empty)
+            {
+                var article = DatabaseManipulator.GetById<Article>(articleID, "Article");
+
+                return View(article);
+            }
+
+            return RedirectToAction("index", "index/manage");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(Article model)
+        {
+
+
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var Article = new Article
+            {
+                _id = model._id,
+                AuthorId = model.AuthorId,
+                Title = model.Title,
+                Content = model.Content,
+                PublishingDate = model.PublishingDate,
+                IsPublic = model.IsPublic
+            };
+
+            DatabaseManipulator.Save(Article);
+
+            return RedirectToAction("");
+        }
     }
 }

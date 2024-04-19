@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\html\styling\fonts\" />
+    <Folder Include="wwwroot\images\Articles\" />
   </ItemGroup>
 
 </Project>
