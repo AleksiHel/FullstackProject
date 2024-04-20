@@ -1,6 +1,13 @@
 ﻿@model ManagementViewModel
 
 
+
+<form method="get" action="/Management" class="mb-3">
+    <button class="btn btn-dark" type="button" id="public">Show public</button>
+    <button class="btn btn-dark" type="button" id="notpublic">Show not public</button>
+    <button class="btn btn-dark" type="button" id="all">Show all</button>
+
+</form>
 <div>
     @foreach (var article in Model.Articles)
     {
@@ -36,3 +43,49 @@
         </div>
     }
 </div>
+
+
+<script>
+    $("#notpublic").click(function () {
+        $.ajax({
+            url: '@Url.Action("FilterArticles", "Management")',
+            type: 'GET',
+            data: { filter: 'notpublic' }, // Pass the filter parameter
+            success: function (data) {
+                $('#render-container').html(data);
+            },
+            error: function () {
+                alert("Error loading articles.");
+            }
+        });
+    });
+
+        $("#public").click(function () {
+        $.ajax({
+            url: '@Url.Action("FilterArticles", "Management")',
+            type: 'GET',
+            data: { filter: 'public' }, // Pass the filter parameter
+            success: function (data) {
+                $('#render-container').html(data);
+            },
+            error: function () {
+                alert("Error loading articles.");
+            }
+        });
+    });
+
+    $("#all").click(function () {
+        $.ajax({
+            url: '@Url.Action("FilterArticles", "Management")',
+            type: 'GET',
+            data: { filter: 'all' }, // Pass the filter parameter
+            success: function (data) {
+                $('#render-container').html(data);
+            },
+            error: function () {
+                alert("Error loading articles.");
+            }
+        });
+    });
+
+</script>

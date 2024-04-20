@@ -7,32 +7,94 @@
 
 }
 
+<form method="get" action="/Management">
+    <button class="btn btn-dark" type="button" id="unanswered">Show Unanswered</button> 
+    <button class="btn btn-dark" type="button" id="answered">Show answered</button>
+    <button class="btn btn-dark" type="button" id="all">Show all</button>
 
-    <h2> @notAnswered messages not answered</h2>
-    <table class="table">
+</form>
 
+
+
+
+
+    @if (notAnswered > 0) {<h2 class="mt-3"> @notAnswered messages not answered</h2> }
+    <table class="table table-hover table-striped">
+    <thead class="thead-dark">
     <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Message</th>
-        <th>Date</th>
-        <th>Function</th>
-        <th>Function2</th>
+        <th scope="#">Name</th>
+            <th scope="#">Email</th>
+            <th scope="#">Message</th>
+            <th scope="#">Date</th>
+            <th scope="#">Status</th>
+            <th scope="#">Function</th>
+            <th scope="#">Function2</th>
     </tr>
-
+    </thead>
+    <tbody>
 
 @foreach (var message in Model.Messages)
 {
-        <tr style="@(!message.Answered ? "background-color: red; opacity: 0.5;" : "")">
+        <tr>
             <th>@message.FullName</th>
         <th>@message.Email</th>
         <th>@message.ContactMessage</th>
         <th>@message.DateSubmitted.ToShortDateString()</th>
-        <th @(message.Answered ? "disabled" : "")><a href="management/markanswered?id=@message._id" class="btn btn-dark">Mark answered</a></th>
-        <th><a href="management/delete?id=@message._id" class="btn btn-dark">Delete</a></th>
+        <th>@(message.Answered ? "answered" : "pending")</th>
+                <th>
+                    <a href="@(message.Answered ? "#" : "management/markanswered?id=" + message._id)"
+                       class="btn btn-dark @(message.Answered ? "disabled" : "")"
+                       onclick="@(message.Answered ? "event.preventDefault();" : "")">
+                        Mark answered
+                    </a>
+                </th>
+                <th><a href="management/delete?id=@message._id" class="btn btn-dark">Delete</a></th>
 
      </tr>
 }
 
-
+    </tbody>
 </table>
+
+
+<script>
+    $("#unanswered").click(function () {
+        $.ajax({
+            url: '@Url.Action("FilterMessages", "Management")',
+            type: 'GET',
+            data: { filter: 'unanswered' }, // Pass the filter parameter
+            success: function (data) {
+                $('#render-container').html(data);
+            },
+            error: function () {
+                alert("Error loading messages.");
+            }
+        });
+    });
+    $("#answered").click(function () {
+        $.ajax({
+            url: '@Url.Action("FilterMessages", "Management")',
+            type: 'GET',
+            data: { filter: 'answered' }, // Pass the filter parameter
+            success: function (data) {
+                $('#render-container').html(data);
+            },
+            error: function () {
+                alert("Error loading messages.");
+            }
+        });
+    });
+    $("#all").click(function () {
+        $.ajax({
+            url: '@Url.Action("FilterMessages", "Management")',
+            type: 'GET',
+            data: { filter: 'all' }, // Pass the filter parameter
+            success: function (data) {
+                $('#render-container').html(data);
+            },
+            error: function () {
+                alert("Error loading messages.");
+            }
+        });
+    });
+</script>

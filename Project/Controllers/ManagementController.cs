@@ -7,6 +7,8 @@ namespace Project.Controllers
 {
     public class ManagementController : Controller
     {
+
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             var messages = DatabaseManipulator.GetAll<Message>("Message");
@@ -21,7 +23,7 @@ namespace Project.Controllers
             return View(ViewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(ObjectId id)
         {
 
@@ -30,6 +32,7 @@ namespace Project.Controllers
 
             return RedirectToAction("index");
         }
+        [Authorize(Roles = "admin")]
 
         public ActionResult markanswered(ObjectId id)
         {
@@ -43,6 +46,7 @@ namespace Project.Controllers
 
             return RedirectToAction("index");
         }
+        [Authorize(Roles = "admin")]
 
         public IActionResult ManageArticles()
         {
@@ -58,6 +62,7 @@ namespace Project.Controllers
 
             return PartialView("_Articles", ViewModel);
         }
+        [Authorize(Roles = "admin")]
 
         public IActionResult ManageMessages()
         {
@@ -74,7 +79,7 @@ namespace Project.Controllers
             return PartialView("_Messages", ViewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
 
         public IActionResult Edit(ObjectId articleID)
         {
@@ -89,7 +94,7 @@ namespace Project.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(Article model)
         {
 
@@ -113,6 +118,81 @@ namespace Project.Controllers
             DatabaseManipulator.Save(Article);
 
             return RedirectToAction("index");
+        }
+        [Authorize(Roles = "admin")]
+
+        public IActionResult FilterMessages(string filter)
+        {
+            List<Message> messages = new List<Message>();
+
+            if (filter == "unanswered")
+            {
+                messages = DatabaseManipulator.GetAll<Message>("Message")
+                                                  .Where(x => x.Answered == false)
+                                                  .ToList();
+            } else if (filter == "answered")
+            {
+                messages = DatabaseManipulator.GetAll<Message>("Message")
+                                                  .Where(x => x.Answered == true)
+                                                  .ToList();
+            } else if (filter == "all")
+            {
+                messages = DatabaseManipulator.GetAll<Message>("Message");
+            }
+
+
+
+
+
+            var articles = DatabaseManipulator.GetAll<Article>("Article");
+
+            var ViewModel = new ManagementViewModel
+            {
+                Messages = messages,
+                Articles = articles
+            };
+
+
+            return PartialView("_Messages", ViewModel);
+        }
+
+        [Authorize(Roles = "admin")]
+
+        public IActionResult FilterArticles(string filter)
+        {
+            List<Article> articles = new List<Article>();
+
+            if (filter == "notpublic")
+            {
+                articles = DatabaseManipulator.GetAll<Article>("Article")
+                                                  .Where(x => x.IsPublic == false)
+                                                  .ToList();
+            }
+            else if (filter == "public")
+            {
+                articles = DatabaseManipulator.GetAll<Article>("Article")
+                                                  .Where(x => x.IsPublic == true)
+                                                  .ToList();
+            }
+            else if (filter == "all")
+            {
+                articles = DatabaseManipulator.GetAll<Article>("Article");
+            }
+
+
+
+
+
+            var messages = DatabaseManipulator.GetAll<Message>("Message");
+
+            var ViewModel = new ManagementViewModel
+            {
+                Messages = messages,
+                Articles = articles
+            };
+
+
+            return PartialView("_Articles", ViewModel);
         }
 
     }
