@@ -1,0 +1,46 @@
+﻿@model ManagementViewModel
+
+<h1>Management Page</h1>
+<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="messages">Manage messages</button>
+<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="articles">Manage articles</button>
+
+<hr />
+
+<div id="render-container">
+    <partial name="_Messages" view-data="ViewData" />
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#articles").click(function () {
+            $.ajax({
+                url: '@Url.Action("ManageArticles", "Management")', // Adjust if your application is configured differently
+                type: 'GET',
+                success: function (data) {
+                    $('#render-container').html(data);
+                },
+                error: function () {
+                    alert("Error loading articles.");
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#messages").click(function () {
+            $.ajax({
+                url: '@Url.Action("ManageMessages", "Management")', // Adjust if your application is configured differently
+                type: 'GET',
+                success: function (data) {
+                    $('#render-container').html(data);
+                },
+                error: function () {
+                    alert("Error loading articles.");
+                }
+            });
+        });
+    });
+
+
+</script>

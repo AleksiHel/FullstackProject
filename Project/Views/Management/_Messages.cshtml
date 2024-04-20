@@ -1,0 +1,38 @@
+﻿
+
+@model ManagementViewModel
+
+@{
+    var notAnswered = Model.Messages.Count(x => !x.Answered);
+
+}
+
+
+    <h2> @notAnswered messages not answered</h2>
+    <table class="table">
+
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Date</th>
+        <th>Function</th>
+        <th>Function2</th>
+    </tr>
+
+
+@foreach (var message in Model.Messages)
+{
+        <tr style="@(!message.Answered ? "background-color: red; opacity: 0.5;" : "")">
+            <th>@message.FullName</th>
+        <th>@message.Email</th>
+        <th>@message.ContactMessage</th>
+        <th>@message.DateSubmitted.ToShortDateString()</th>
+        <th @(message.Answered ? "disabled" : "")><a href="management/markanswered?id=@message._id" class="btn btn-dark">Mark answered</a></th>
+        <th><a href="management/delete?id=@message._id" class="btn btn-dark">Delete</a></th>
+
+     </tr>
+}
+
+
+</table>

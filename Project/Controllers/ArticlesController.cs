@@ -33,7 +33,7 @@ namespace Project.Controllers
 
             }
 
-            return View();
+            return RedirectToAction("");
 
 
         }
@@ -82,45 +82,5 @@ namespace Project.Controllers
             return View(Articles);
         }
 
-        [Authorize]
-
-        public IActionResult Edit(ObjectId articleID)
-        {
-            if (articleID != ObjectId.Empty)
-            {
-                var article = DatabaseManipulator.GetById<Article>(articleID, "Article");
-
-                return View(article);
-            }
-
-            return RedirectToAction("index", "index/manage");
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Edit(Article model)
-        {
-
-
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var Article = new Article
-            {
-                _id = model._id,
-                AuthorId = model.AuthorId,
-                Title = model.Title,
-                Content = model.Content,
-                PublishingDate = model.PublishingDate,
-                IsPublic = model.IsPublic
-            };
-
-            DatabaseManipulator.Save(Article);
-
-            return RedirectToAction("");
-        }
     }
 }

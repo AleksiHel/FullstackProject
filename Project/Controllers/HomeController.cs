@@ -17,7 +17,10 @@ namespace Project.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var Articles = DatabaseManipulator.GetAll<Article>("Article").Where(article => article.IsPublic && article.PublishingDate <= DateTime.Today).ToList();
+
+
+            return View(Articles.Take(3).ToList());
         }
 
         public IActionResult Privacy()

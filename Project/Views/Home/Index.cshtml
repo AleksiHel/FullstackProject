@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Article>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -39,3 +41,39 @@
                  alt="Jari & Taika yhtyeen promokuva. Yhtye seisoo vihreän puskan edustalla. Jari ja Jukka ovat etualalla polvillaan haitarit edessään. Hannu ja Jaakko seisovat heidän takanaan. Jaakolla on kädessään saksofoni. ">
         </div>
 </div>
+
+<div class="container mt-5">
+    @if (Model.Count > 0)
+    {
+        <h2 class="text-center">Latest articles</h2>
+        <div class="row row-cols-1 row-cols-lg-3 g-4 mt-5">
+
+            @foreach (var x in Model)
+            {
+
+
+                string contentShort = HtmlTruncator.TruncateHtml(x.Content, 390);
+                string titleShort = HtmlTruncator.TruncateHtml(x.Title, 45);
+                string titleFormatted = x.Title.Replace(" ", "-");
+
+
+                <div class="col">
+                    <div class="card h-100 border-0">
+                        <img src="images/intro.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h2 class="card-title">@titleShort</h2>
+                            <p class="lead">@x.PublishingDate.ToShortDateString()</p>
+                            <p class="card-text">@Html.Raw(@contentShort)</p>
+                            <a href="Articles/Read?ArticleName=@titleFormatted"><button type="button" class="btn btn-dark mb-3 justify-content-end">Read</button></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    }
+    else
+    {
+        <p>No articles found!</p>
+    }
+    </div>

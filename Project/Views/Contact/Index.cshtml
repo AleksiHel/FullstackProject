@@ -1,0 +1,69 @@
+﻿@model MessageViewModel
+
+
+<div class="container" style="max-width: 1000px">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="BsIcons">
+                <h1 class="mt-5 text-center">You can contact me at</h1>
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="bi bi-envelope-fill"></i>
+
+                </div>
+                <p class="mb-0 fs-4 text-center">Emailaddress@email.com</p>
+                <p class="text-center mt-1">liiba laaba duu</p>
+
+                <div class="d-flex align-items-center justify-content-center ">
+                    <i class="bi bi-instagram"></i>
+                </div>
+
+                <p class="mb-0 fs-4 text-center">DM@@Instagram handle</p>
+                <p class="text-center mt-1">liiba laaba duu</p>
+
+            </div>
+
+            <form asp-controller="Contact" asp-action="Index" method="post">
+
+
+
+
+
+                <h2 class="mt-5 text-center">Or leave a message here</h2>
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label asp-for="FirstName">First Name</label>
+                            <input asp-for="FirstName" type="text" class="form-control mt-1" placeholder="Enter your first name...">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label asp-for="LastName">Last Name</label>
+                            <input asp-for="LastName" type="text" class="form-control mt-1" placeholder="Enter your first name...">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Email">Email address</label>
+                    <input asp-for="Email" type="email" class="form-control mt-1" id="exampleFormControlInput1" placeholder="Enter your email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3">
+                    <label asp-for="ContactMessage">Your message</label>
+                    <textarea asp-for="ContactMessage" class="form-control mt-1" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <span asp-validation-for="ContactMessage" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-dark mb-3 mt-3">Send</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

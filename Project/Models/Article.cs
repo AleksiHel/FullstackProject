@@ -15,7 +15,7 @@ namespace Project.Models
         [Required]
         public string Content {  get; set; }
         //[Required]
-        public bool IsPublic { get; set; }
+        public bool IsPublic { get; set; } 
         [Required]
         public DateTime PublishingDate { get; set; }
 

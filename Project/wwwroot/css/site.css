@@ -76,3 +76,14 @@ p {
     height: 2em;
 }
 
+.BsIcons .bi-instagram {
+    font-size: 80px;
+}
+
+.BsIcons .bi-telephone-fill {
+    font-size: 80px;
+}
+
+.BsIcons .bi-envelope-fill {
+    font-size: 80px;
+}
