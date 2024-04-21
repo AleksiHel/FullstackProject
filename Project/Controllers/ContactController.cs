@@ -3,6 +3,7 @@ using Project.Models;
 
 namespace Project.Controllers
 {
+
     public class ContactController : Controller
     {
         public IActionResult Index()

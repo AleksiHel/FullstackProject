@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Project.Models;
+using Slugify;
 
 namespace Project.Controllers
 {
-    
+    [Route("Articles")]
     public class ArticlesController : Controller
     {
+        [HttpGet("")]
         public IActionResult Index()
         {
             var Articles = DatabaseManipulator.GetAll<Article>("Article").Where(article => article.IsPublic && article.PublishingDate <= DateTime.Today).ToList();
@@ -15,46 +17,53 @@ namespace Project.Controllers
             return View(Articles);
         }
 
-        public IActionResult Read(string ArticleName)
-        {
-            if (ArticleName != null)
-            {
 
-                string notFormattedTitle = ArticleName.Replace("-", " ");
+        //public IActionResult Read(string ArticleName)
+        //{
+        //    if (ArticleName != null)
+        //    {
 
-                var ArticleMongo = DatabaseManipulator.GetByTitle<Article>(notFormattedTitle);
+        //        string notFormattedTitle = ArticleName.Replace("-", " ");
 
-                // no reading non public posts with get
-                if (ArticleMongo.IsPublic)
-                {
-                    return View(ArticleMongo);
+        //        var ArticleMongo = DatabaseManipulator.GetByTitle<Article>(notFormattedTitle);
 
-                }
+        //        // no reading non public posts with get
+        //        if (ArticleMongo.IsPublic)
+        //        {
+        //            return View(ArticleMongo);
 
-            }
+        //        }
 
-            return RedirectToAction("");
+        //    }
 
+        //    return RedirectToAction("");
+        //}
 
-        }
-
+        [HttpGet("NewPost")]
         [Authorize(Roles = "admin")]
         public IActionResult NewPost()
         {
             return View();
         }
 
+
+        [HttpPost("NewPost")]
         [Authorize]
-        [HttpPost]
         public async Task<IActionResult> NewPost(Article model)
         {
 
-
+            model.Slug = new SlugHelper().GenerateSlug(model.Title);
 
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+
+            var check = DatabaseManipulator.GetBySlug<Article>(model.Slug);
+
+            // No duplicate slugs or title
+            // kinda meh mebe fix
+            if (check != null) { return View(model); };
 
             var loggedInUserId = DatabaseManipulator.GetUsersID(User.Identity.Name);
 
@@ -64,23 +73,24 @@ namespace Project.Controllers
                 Title = model.Title,
                 Content = model.Content,
                 PublishingDate = model.PublishingDate,
-                IsPublic = model.IsPublic
+                IsPublic = model.IsPublic,
+                Slug = model.Slug
             };
 
             DatabaseManipulator.Save(Article);
 
             return RedirectToAction("");
         }
-        [Authorize]
 
-        public IActionResult Manage()
+        [HttpGet("/Article/{slug}")]
+        public IActionResult Read(string slug)
         {
 
-            var Articles = DatabaseManipulator.GetAll<Article>("Article").OrderByDescending(x => x.PublishingDate).ToList();
+            var testi = DatabaseManipulator.GetBySlug<Article>(slug);
 
-
-            return View(Articles);
+            return View(testi);
         }
+
 
     }
 }

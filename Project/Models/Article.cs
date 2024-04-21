@@ -18,7 +18,7 @@ namespace Project.Models
         public bool IsPublic { get; set; } 
         [Required]
         public DateTime PublishingDate { get; set; }
-
+        public string? Slug { get; set; }
         
 
     }

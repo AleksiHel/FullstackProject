@@ -4,6 +4,7 @@ using Project.Models;
 
 namespace Project.Controllers
 {
+
     public class RegisterController : Controller
     {
         public IActionResult Index()

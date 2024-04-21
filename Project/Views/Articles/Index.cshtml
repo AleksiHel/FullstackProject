@@ -5,7 +5,7 @@
 
 @if (User.IsInRole("admin"))
 {
-    <a href="articles/newpost"><button type="button" class="btn btn-dark mb-3">Create new post</button></a>
+    <a href="/Articles/NewPost" class="btn btn-dark mb-3" role="button">Create new post</a>
 }
 
 <h1 class="mt-5 text-center">Articles</h1>
@@ -30,8 +30,8 @@
                     <h2 class="card-title">@titleShort</h2>
                     <p class="lead">@x.PublishingDate.ToShortDateString()</p>
                     <p class="card-text">@Html.Raw(@contentShort)</p>
-                    <a href="Articles/Read?ArticleName=@titleFormatted"><button type="button" class="btn btn-dark mb-3 justify-content-end">Read</button></a>
-                </div>
+                        <a href="@Url.Action("Read", new { slug = @x.Slug })" class="btn btn-primary">Read More</a>
+                    </div>
             </div>
         </div>
     }
