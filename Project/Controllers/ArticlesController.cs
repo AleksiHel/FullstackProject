@@ -85,7 +85,6 @@ namespace Project.Controllers
         [HttpGet("/Article/{slug}")]
         public IActionResult Read(string slug)
         {
-
             var testi = DatabaseManipulator.GetBySlug<Article>(slug);
 
             return View(testi);

@@ -30,7 +30,7 @@
                     <h2 class="card-title">@titleShort</h2>
                     <p class="lead">@x.PublishingDate.ToShortDateString()</p>
                     <p class="card-text">@Html.Raw(@contentShort)</p>
-                        <a href="@Url.Action("Read", new { slug = @x.Slug })" class="btn btn-primary">Read More</a>
+                        <a href="@Url.Action("Read", new { slug = @x.Slug })" class="btn btn-dark">Read</a>
                     </div>
             </div>
         </div>

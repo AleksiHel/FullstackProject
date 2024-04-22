@@ -23,14 +23,14 @@ body {
 
   }
 
-h1 {
+/*h1 {
     font-family: Rubik Medium;
 }
 
 p {
     font-family: Open sans light;
 }
-
+*/
 .image-container {
     position: relative;
     text-align: center;
@@ -86,4 +86,14 @@ p {
 
 .BsIcons .bi-envelope-fill {
     font-size: 80px;
+}
+
+#arrowhover i {
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    #top .ms-5 {
+        margin-left: 0 !important; /* Overriding Bootstrap's margin */
+    }
 }
