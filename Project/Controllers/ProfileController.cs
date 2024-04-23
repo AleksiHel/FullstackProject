@@ -2,7 +2,7 @@
 
 namespace Project.Controllers
 {
-    public class ProductsController : Controller
+    public class ProfileController : Controller
     {
         public IActionResult Index()
         {

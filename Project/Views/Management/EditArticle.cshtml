@@ -2,7 +2,7 @@
 
 
 <h1 class="mb-3">Edit post</h1>
-<form asp-controller="Management" asp-action="Edit" method="post" class="d-flex flex-column">
+<form asp-controller="Management" asp-action="EditArticle" method="post" class="d-flex flex-column">
     <input asp-for="_id" type="hidden" value="@Model._id">
     <input asp-for="AuthorId" type="hidden" value="@Model.AuthorId"/>
 

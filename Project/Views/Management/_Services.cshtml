@@ -1,0 +1,39 @@
+﻿@model List<Service>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<a href="management/AddService"><button type="button" class="btn btn-dark mb-3 justify-content-end">Add Service</button></a>
+
+<table class="table table-hover table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="#">Name</th>
+            <th scope="#">Price</th>
+            <th scope="#">Description</th>
+            <th scope="#">Additional information</th>
+            <th scope="#">Function 1</th>
+            <th scope="#">Function 2</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var message in Model)
+        {
+            <tr>
+                <th>@message.ServiceName</th>
+                <th>@message.ServicePrice</th>
+                <th>@message.ServiceDescription</th>
+                <th>@message.AdditionalInformation</th>
+                <th><a href="management/EditService?ServiceId=@message._id" class="btn btn-dark">Edit</a></th>
+                <th><a href="management/DeleteService?ServiceId=@message._id" class="btn btn-dark">Delete</a></th>
+
+            </tr>
+        }
+
+    </tbody>
+</table>

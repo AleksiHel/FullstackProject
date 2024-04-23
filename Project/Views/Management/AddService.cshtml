@@ -1,0 +1,38 @@
+﻿@model Service
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container-sm p-3" >
+    <h1 class=" fw-bold mt-5">Create new service</h1>
+    <form asp-controller="Management" asp-action="AddService" method="post" class="align-content-lg-end">
+        <div class="form-group p-1">
+            <label asp-for="ServiceName" class="form-label">Service name</label>
+            <input asp-for="ServiceName" class="form-control" />
+            <span asp-validation-for="ServiceName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1">
+            <label asp-for="ServicePrice" class="form-label">Price</label>
+            <input asp-for="ServicePrice" type="number" class="form-control" />
+            <span asp-validation-for="ServicePrice" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1">
+            <label asp-for="ServiceDescription" class="form-label">Description</label>
+            <textarea asp-for="ServiceDescription" class="form-control" rows="5" ></textarea>
+            <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1">
+            <label asp-for="AdditionalInformation" class="form-label">Additional information</label>
+            <textarea asp-for="AdditionalInformation" class="form-control" rows="2"> </textarea>
+            <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Add</button>
+    </form>
+</div>

@@ -1,8 +1,12 @@
-﻿@model ManagementViewModel
-
+﻿
 <h1>Management Page</h1>
+<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="profile">Manage website profile</button>
+<br />
+
 <button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="messages">Manage messages</button>
 <button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="articles">Manage articles</button>
+<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="services">Manage Services</button>
+
 
 <hr />
 
@@ -42,5 +46,34 @@
         });
     });
 
+    $(document).ready(function () {
+        $("#services").click(function () {
+            $.ajax({
+                url: '@Url.Action("ManageServices", "Management")', // Adjust if your application is configured differently
+                type: 'GET',
+                success: function (data) {
+                    $('#render-container').html(data);
+                },
+                error: function () {
+                    alert("Error loading articles.");
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#websiteprofile").click(function () {
+            $.ajax({
+                url: '@Url.Action("ManageProfile", "Management")', // Adjust if your application is configured differently
+                type: 'GET',
+                success: function (data) {
+                    $('#render-container').html(data);
+                },
+                error: function () {
+                    alert("Error loading articles.");
+                }
+            });
+        });
+    });
 
 </script>

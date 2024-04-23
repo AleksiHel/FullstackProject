@@ -35,7 +35,9 @@
 
 
                         <p class="card-text">@Html.Raw(contentShort)</p>
-                        <a href="management/edit?articleId=@article._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
+                        <a href="management/EditArticle?articleId=@article._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
+                        <a href="management/DeleteArticle?articleId=@article._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Delete</button></a>
+
 
                     </div>
                 </div>
@@ -46,6 +48,10 @@
 
 
 <script>
+
+    // TODO: Tee dynaamisexi
+
+
     $("#notpublic").click(function () {
         $.ajax({
             url: '@Url.Action("FilterArticles", "Management")',

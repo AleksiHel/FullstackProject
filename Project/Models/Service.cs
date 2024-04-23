@@ -4,21 +4,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Project.Models
 {
-    public class Product
+    public class Service
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId _id { get; set; }
 
         [Required]
-        public string ProductName { get; set; }
+        public string ServiceName { get; set; }
 
         [Required]
-        public string ProductDescription { get; set; }
+        public string ServiceDescription { get; set; }
 
         [Required]
         [BsonRepresentation(BsonType.Decimal128)]
 
-        public double? ProductPrice { get; set; }
+        public double? ServicePrice { get; set; }
+
+
+        public string AdditionalInformation { get; set; }
 
     }
 }

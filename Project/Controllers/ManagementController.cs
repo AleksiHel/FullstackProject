@@ -24,14 +24,12 @@ namespace Project.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public ActionResult Delete(ObjectId id)
+        public ActionResult DeleteMessage(ObjectId id)
         {
-
-
             DatabaseManipulator.Delete(DatabaseManipulator.GetById<Message>(id, "Message"));
-
             return RedirectToAction("index");
         }
+
         [Authorize(Roles = "admin")]
 
         public ActionResult markanswered(ObjectId id)
@@ -50,18 +48,32 @@ namespace Project.Controllers
 
         public IActionResult ManageArticles()
         {
-            var messages = DatabaseManipulator.GetAll<Message>("Message");
             var articles = DatabaseManipulator.GetAll<Article>("Article");
-
-            var ViewModel = new ManagementViewModel
-            {
-                Messages = messages,
-                Articles = articles
-            };
-
+            
+            var ViewModel = new ManagementViewModel { Articles = articles };
 
             return PartialView("_Articles", ViewModel);
         }
+
+        public ActionResult DeleteArticle(ObjectId ArticleID)
+        {
+
+
+            DatabaseManipulator.Delete(DatabaseManipulator.GetById<Article>(ArticleID, "Article"));
+
+            return RedirectToAction("index");
+        }
+
+        public ActionResult DeleteService(ObjectId ServiceId)
+        {
+
+
+            DatabaseManipulator.Delete(DatabaseManipulator.GetById<Service>(ServiceId, "Service"));
+
+            return RedirectToAction("index");
+        }
+
+
         [Authorize(Roles = "admin")]
 
         public IActionResult ManageMessages()
@@ -81,7 +93,52 @@ namespace Project.Controllers
 
         [Authorize(Roles = "admin")]
 
-        public IActionResult Edit(ObjectId articleID)
+        public IActionResult ManageServices()
+        {
+            var services = DatabaseManipulator.GetAll<Service>("Service").ToList();
+
+            return PartialView("_Services", services);
+        }
+        [Authorize(Roles = "admin")]
+
+        public IActionResult AddService()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> AddService(Service model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            DatabaseManipulator.Save(model);
+
+            return RedirectToAction("index");
+
+        }
+
+        [Authorize(Roles = "admin")]
+
+        public IActionResult EditService(ObjectId ServiceId)
+        {
+            if (ServiceId != ObjectId.Empty)
+            {
+                var service = DatabaseManipulator.GetById<Service>(ServiceId, "Service");
+
+                return View(service);
+            }
+
+            return PartialView("_Services");
+        }
+
+        [Authorize(Roles = "admin")]
+
+        public IActionResult EditArticle(ObjectId articleID)
         {
             if (articleID != ObjectId.Empty)
             {
@@ -90,32 +147,33 @@ namespace Project.Controllers
                 return View(article);
             }
 
-            return RedirectToAction("index", "index/manage");
+            return PartialView("_Articles");
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Edit(Article model)
+        public async Task<IActionResult> EditService(Service model)
         {
-
-
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var Article = new Article
-            {
-                _id = model._id,
-                AuthorId = model.AuthorId,
-                Title = model.Title,
-                Content = model.Content,
-                PublishingDate = model.PublishingDate,
-                IsPublic = model.IsPublic
-            };
+            DatabaseManipulator.Save(model);
 
-            DatabaseManipulator.Save(Article);
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> EditArticle(Article model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            DatabaseManipulator.Save(model);
 
             return RedirectToAction("index");
         }
