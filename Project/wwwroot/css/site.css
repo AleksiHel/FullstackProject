@@ -19,18 +19,21 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 
   }
 
-/*h1 {
-    font-family: Rubik Medium;
+
+h1, h2 {
+    font-family: Rubik, sans-serif;
 }
 
-p {
-    font-family: Open sans light;
+a {
+    font-family: Inter, sans-serif;
+
 }
-*/
+
+
 .image-container {
     position: relative;
     text-align: center;
@@ -96,4 +99,59 @@ p {
     #top .ms-5 {
         margin-left: 0 !important; /* Overriding Bootstrap's margin */
     }
+    .navbar-divider {
+        display: none;
+    }
+}
+
+
+
+
+.bg-image {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px); /* This will adjust dynamically */
+    background-image: url("/images/BGIMG.jpg");
+    background-size: cover; /* 100% width and auto height to maintain aspect ratio */
+    background-position: center center; /* Aligns the image at the top center */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    overflow: hidden;
+    z-index: 1;
+
+}
+
+
+
+.navbar-divider {
+    width: 30%; /* Set to 50% if you want the <hr> to cover half the width */
+    border-top: 1px solid rgba(255, 255, 255); /* White with some transparency */
+    position: absolute;
+    top: 40px; /* Adjust based on your navbar's height */
+    left: 50%; /* Start from the middle of the page */
+    transform: translateX(-50%); /* Shift it back to truly center */
+    opacity: 1;
+}
+
+.navbar-nav.mx-auto .nav-item {
+    margin-left: 5px; /* Add space to the left of each item */
+    margin-right: 5px; /* Add space to the left of each item */
+}
+
+
+    .col-xxl-3 p {
+        min-height: 300px; /* Adjust based on typical image height or use JS to dynamically match image height */
+    }
+
+    /* Ensure images don't exceed the height of the text container */
+    .col-xxl-3 img {
+        height: 100%; /* Make image height responsive to the column height */
+        object-fit: cover; /* Ensures the image covers the area without distorting aspect ratio */
+    }
+
+.hovercontact {
+    opacity: 90%;
+}
+
+.hovercontact:hover {
+    opacity: 100%;
 }

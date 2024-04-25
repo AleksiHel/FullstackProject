@@ -5,47 +5,61 @@
 }
 
 
-<div class="container-fluid p-0">
-    <div class="image-container position-relative">
-        <img src="images/intro.webp" class="img-fluid" style="max-width: 100%;" alt="Descriptive Text">
-        <div class="centered-text position-absolute top-50 start-50 translate-middle">
-            <h1 class="text-white">Your Text Here</h1>
-        </div>
-    </div>
+<div class="bg-image container-fluid align-content-center text-center">
+    <h1 class="fw-bolder lead fs-1">Professional photography for your needs</h1>
+    <h2 class="lead fs-2">We believe being the best is not enough</h2>
+    <i class="bi bi-caret-down-fill fs-1"></i>
+
+
 </div>
 
 
-<div class="container col-m-8 rounded shadow-lg mt-5">
-    <div class="row align-items-center shadow  py-5">
+<div class="mt-5 container-lg p-3">
+    <h1 class="text-white fs-1 fw-bold me-5 p-3" style="max-width: 75%">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </h1>
 
-        <div class="col-lg-6 ">
 
 
-            <div class="lc-block mb-3  border-bottom border-warning">
-                <h1 class="mb-5 border-bottom border-warning">Lorem ipsum</h1>
+ <div class="container-fluid">
 
-                <p class="fs-5">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        <h3 class="text-white fs-3 mt-5" >
+        Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </h3>
+    <h3 class="text-white fs-3 mt-5" >        Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </h3>
+</div>
+</div>
+
+    <div class="row p-5 justify-content-center mt-5 border-top" >
+
+        <div class="col-xxl-3 text-black bg-white rounded-1 p-3 mb-3 align-content-center me-5">
+            <h1>Who am I?</h1>
+                <p class="fs-5 p-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </p>
-                <p class="fs-5">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                    officia deserunt mollit anim id est laborum."
-                </p>
-            </div>
+
         </div>
-        <div class="col-lg-6 mx-auto align-items-center">
+        <div class="col-xxl-3 rounded-1 p-0 mb-3">
             <img src="images/jorppa.jpg" class="d-block mx-lg-auto img-fluid"
-                 alt="Jari & Taika yhtyeen promokuva. Yhtye seisoo vihreän puskan edustalla. Jari ja Jukka ovat etualalla polvillaan haitarit edessään. Hannu ja Jaakko seisovat heidän takanaan. Jaakolla on kädessään saksofoni. ">
+                 alt="placeholdeer">
         </div>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5 text-white">
     @if (Model.Count > 0)
     {
-        <h2 class="text-center">Latest articles</h2>
+        <h2 class="text-center border-bottom">Latest articles</h2>
         <div class="row row-cols-1 row-cols-lg-3 g-4 mt-5">
 
             @foreach (var x in Model)
@@ -58,13 +72,15 @@
 
 
                 <div class="col">
-                    <div class="card h-100 border-0">
-                        <img src="images/intro.webp" class="card-img-top" alt="...">
+                    <div class="card h-100 border-0 text-white bg-black">
+                        <a href="@Url.Action("Read", "Articles", new { slug = @x.Slug })">
+                            <img src="images/intro.webp" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h2 class="card-title">@titleShort</h2>
                             <p class="lead">@x.PublishingDate.ToShortDateString()</p>
                             <p class="card-text">@Html.Raw(@contentShort)</p>
-                            <a href="Articles/Read?ArticleName=@titleFormatted"><button type="button" class="btn btn-dark mb-3 justify-content-end">Read</button></a>
+                            <a href="@Url.Action("Read", "Articles", new { slug = @x.Slug })" class="btn btn-light fw-bold">Read</a>
                         </div>
                     </div>
                 </div>
@@ -77,3 +93,12 @@
         <p>No articles found!</p>
     }
     </div>
+
+<div class="container-fluid mt-5">
+    <div class="row alignt-content-center justify-content-center">
+        <div class="col-10">
+<div class="elfsight-app-42fc9609-6015-469b-806b-2bc95ee09ff5" data-elfsight-app-lazy></div>
+    </div>
+    </div>
+</div>
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
