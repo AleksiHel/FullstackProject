@@ -21,7 +21,7 @@ namespace Project.Models
         public string ContactMessage { get; set; }
 
         [Required]
-        public DateTime DateSubmitted { get; set; } = DateTime.Today;
+        public DateTime DateSubmitted { get; set; }
 
         [Required]
         public bool Answered { get; set; } = false;

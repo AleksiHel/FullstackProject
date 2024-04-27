@@ -23,7 +23,9 @@ namespace Project.Models
         [Required]
         public string Subject { get; set; }
 
-        public List<Service> Services = DatabaseManipulator.GetAll<Service>("Service");
+        public List<Service> Services;
+
+        public string Selected { get; set; } = "placeholder test to not give empty when going from form to controller";
 
         //[Required]
         //public DateTime DateSubmitted { get; set; }

@@ -52,14 +52,21 @@
                         <option value="msg">Just a message</option>
                         @foreach (var x in Model.Services)
                         {
-                           <option value="@x.ServiceName">@x.ServiceName</option>
+                            @if (Model.Selected != null && Model.Selected == x.ServiceName)
+                            {
+                                <option value="@x.ServiceName" selected>@x.ServiceName</option>
 
+                            } else
+                            {
+                                <option value="@x.ServiceName">@x.ServiceName</option>
+
+                            }
                         }
                     </Select>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-3">
-                    <label asp-for="ContactMessage">Your message</label>
+                    <label asp-for="ContactMessage">Give me short description about your inquiry</label>
                     <textarea asp-for="ContactMessage" class="form-control mt-1" id="exampleFormControlTextarea1" rows="3"></textarea>
                     <span asp-validation-for="ContactMessage" class="text-danger"></span>
                 </div>
