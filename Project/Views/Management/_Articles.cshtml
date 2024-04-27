@@ -3,9 +3,9 @@
 
 
 <form method="get" action="/Management" class="mb-3">
-    <button class="btn btn-dark" type="button" id="public">Show public</button>
-    <button class="btn btn-dark" type="button" id="notpublic">Show not public</button>
-    <button class="btn btn-dark" type="button" id="all">Show all</button>
+    <button class="btn btn-light" type="button" id="public">Show public</button>
+    <button class="btn btn-light" type="button" id="notpublic">Show not public</button>
+    <button class="btn btn-light" type="button" id="all">Show all</button>
 
 </form>
 <div>
@@ -14,7 +14,7 @@
         string contentShort = HtmlTruncator.TruncateHtml(article.Content, 600);
 
 
-        <div class="card mb-3 border-0 h-100">
+        <div class="card mb-3 border-0 h-100 bg-white text-black">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="~/images/intro.webp" class="img-fluid rounded-start" alt="...">

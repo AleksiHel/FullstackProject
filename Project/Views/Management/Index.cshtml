@@ -1,19 +1,19 @@
-﻿
-<h1>Management Page</h1>
-<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="profile">Manage website profile</button>
+﻿<div class="container-lg">
+<h1 class="text-white mt-5">Management Page</h1>
+    <a href="/Management/WebsiteProfile" class="btn btn-light mb-3 p-2 border-1 fw-bold mt-5" role="button">Manage website profile</a>
+
+<button type="button" class="action-btn btn-light mb-3 p-2 border-1 fw-bold mt-5" id="profile">Manage website profile</button>
 <br />
-
-<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="messages">Manage messages</button>
-<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="articles">Manage articles</button>
-<button type="button" class="action-btn btn-dark mb-3 p-2 border-1" id="services">Manage Services</button>
-
+<button type="button" class="action-btn btn-light mb-1 p-2 border-1 fw-bold" id="messages">Manage messages</button>
+<button type="button" class="action-btn btn-light mb-1 p-2 border-1 fw-bold" id="articles">Manage articles</button>
+<button type="button" class="action-btn btn-light mb-1 p-2 border-1 fw-bold" id="services">Manage Services</button>
 
 <hr />
 
 <div id="render-container">
     <partial name="_Messages" view-data="ViewData" />
 </div>
-
+</div>
 <script>
 
     $(document).ready(function () {

@@ -20,6 +20,11 @@ namespace Project.Models
         [MaxLength(500, ErrorMessage = "Message too long")]
         public string ContactMessage { get; set; }
 
+        [Required]
+        public string Subject { get; set; }
+
+        public List<Service> Services = DatabaseManipulator.GetAll<Service>("Service");
+
         //[Required]
         //public DateTime DateSubmitted { get; set; }
 

@@ -1,7 +1,12 @@
 ﻿@model Article
 
 
-<h1 class="mb-3">Edit post</h1>
+<div class="container-fluid"></div>
+
+
+<div class="container-lg mt-5">
+    <h1 class="mb-3">Edit post</h1>
+
 <form asp-controller="Management" asp-action="EditArticle" method="post" class="d-flex flex-column">
     <input asp-for="_id" type="hidden" value="@Model._id">
     <input asp-for="AuthorId" type="hidden" value="@Model.AuthorId"/>
@@ -25,7 +30,7 @@
             <i class="bi bi-question-circle ms-2 fs-4" data-bs-toggle="tooltip" data-placement="right"
             title="Article will be saved as draft if you don't want to publish right away">
             </i>
-            <input asp-for="IsPublic" class="form-control mb-3 form-check-input" type="checkbox">
+            <input asp-for="IsPublic" class="form-control mb-3 form-check-input p-3" type="checkbox">
             <span asp-validation-for="IsPublic" class="text-danger"></span>
         </div>
     </div>
@@ -37,14 +42,14 @@
     <div class="container mt-3">
         <div class="row justify-content-between">
             <div class="col-auto">
-                <button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Save</button>
+                <button type="submit" class="btn btn-light p-2 mt-1 mb-2">Save</button>
             </div>
 
         </div>
     </div>
-    <div class="form-check">
-    </div>
-</form>
+
+    </form>
+</div>
 <link href="~/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="~/js/froala_editor.pkgd.min.js"></script>
 <script>

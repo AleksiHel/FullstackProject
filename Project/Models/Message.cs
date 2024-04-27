@@ -12,7 +12,7 @@ namespace Project.Models
 
         [Required(ErrorMessage = "Email required")]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; } 
+        public string Email { get; set; }
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Message required")]
@@ -25,6 +25,7 @@ namespace Project.Models
 
         [Required]
         public bool Answered { get; set; } = false;
-
+        [Required]
+        public string Subject { get; set; }
     }
 }

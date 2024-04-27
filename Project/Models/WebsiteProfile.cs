@@ -19,9 +19,9 @@ namespace Project.Models
         [Required]
         public string PageName { get; set; }
 
-        public List<string> Palmares { get; set;}
-        public string ProfileText { get; set; }
+        public string Palmares { get; set;}
 
+        public Dictionary<string, string> Socials { get; set; }
         
 
 

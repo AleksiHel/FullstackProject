@@ -253,5 +253,28 @@ namespace Project.Controllers
             return PartialView("_Articles", ViewModel);
         }
 
+
+
+        public IActionResult WebsiteProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WebsiteProfile(WebsiteProfile model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+
+
+            DatabaseManipulator.Save(model);
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

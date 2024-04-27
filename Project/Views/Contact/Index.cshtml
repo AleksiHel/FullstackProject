@@ -47,16 +47,14 @@
                 </div>
 
                 <div class="form-group mt-3">
-                    <label asp-for="Email">Product</label>
-                    <Select asp-for="Email" type="email" class="form-control mt-1" id="exampleFormControlInput1" placeholder="None">
-                        <option value="asdf">None, just a message for you :-)</option>
-                        <option value="asdf">Product 1</option>
-                        <option value="asdf">Product 2</option>
-                        <option value="asdf">Product 3</option>
+                    <label asp-for="Subject">I'm interested in...</label>
+                    <Select asp-for="Subject" class="form-control mt-1" id="exampleFormControlInput1" placeholder="None">
+                        <option value="msg">Just a message</option>
+                        @foreach (var x in Model.Services)
+                        {
+                           <option value="@x.ServiceName">@x.ServiceName</option>
 
-
-
-
+                        }
                     </Select>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>

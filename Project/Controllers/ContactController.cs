@@ -8,7 +8,9 @@ namespace Project.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var ViewModel = new MessageViewModel();
+
+            return View(ViewModel);
         }
 
         [HttpPost]
@@ -17,7 +19,9 @@ namespace Project.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(model);
+                var ViewModel = new MessageViewModel();
+
+                return View(ViewModel);
             }
 
             var Message = new Message
@@ -25,6 +29,7 @@ namespace Project.Controllers
                 FullName = model.FirstName + " " + model.LastName,
                 Email = model.Email,
                 ContactMessage = model.ContactMessage,
+                Subject = model.Subject
             };
 
             DatabaseManipulator.Save(Message);

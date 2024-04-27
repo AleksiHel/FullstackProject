@@ -77,6 +77,7 @@ a {
 .checkboxStyling input[type="checkbox"] {
     width: 2em;
     height: 2em;
+    border: white;
 }
 
 .BsIcons .bi-instagram {
@@ -102,6 +103,12 @@ a {
     .navbar-divider {
         display: none;
     }
+
+    .custom-section {
+        margin-right: 0px !important;
+    }
+
+
 }
 
 
@@ -138,20 +145,20 @@ a {
 }
 
 
-    .col-xxl-3 p {
-        min-height: 300px; /* Adjust based on typical image height or use JS to dynamically match image height */
-    }
-
-    /* Ensure images don't exceed the height of the text container */
-    .col-xxl-3 img {
-        height: 100%; /* Make image height responsive to the column height */
-        object-fit: cover; /* Ensures the image covers the area without distorting aspect ratio */
-    }
-
 .hovercontact {
     opacity: 90%;
 }
 
 .hovercontact:hover {
     opacity: 100%;
+}
+
+
+
+.custom-section .col {
+    margin: 500px;
+}
+
+.ServiceTextFormat {
+    white-space: pre-line;
 }

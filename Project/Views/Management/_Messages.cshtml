@@ -6,11 +6,10 @@
     var notAnswered = Model.Messages.Count(x => !x.Answered);
 
 }
-
 <form method="get" action="/Management">
-    <button class="btn btn-dark" type="button" id="unanswered">Show Unanswered</button> 
-    <button class="btn btn-dark" type="button" id="answered">Show answered</button>
-    <button class="btn btn-dark" type="button" id="all">Show all</button>
+    <button class="btn btn-light" type="button" id="unanswered">Show Unanswered</button> 
+    <button class="btn btn-light" type="button" id="answered">Show answered</button>
+    <button class="btn btn-light" type="button" id="all">Show all</button>
 
 </form>
 
@@ -18,12 +17,14 @@
 
 
 
-    @if (notAnswered > 0) {<h2 class="mt-3"> @notAnswered messages not answered</h2> }
-    <table class="table table-hover table-striped">
-    <thead class="thead-dark">
+    @if (notAnswered > 0) {<h2 class="mt-3"> @notAnswered unanswered messages</h2> }
+    <table class="table table-hover table-striped table-light mt-3">
+    <thead class="thead">
     <tr>
         <th scope="#">Name</th>
             <th scope="#">Email</th>
+            <th scope="#">Subject</th>
+
             <th scope="#">Message</th>
             <th scope="#">Date</th>
             <th scope="#">Status</th>
@@ -37,8 +38,15 @@
 {
         <tr>
             <th>@message.FullName</th>
-                <th>@message.Email</th>
-        <th>@message.ContactMessage</th>
+            <th>@message.Email</th>
+            <th>@message.Subject</th>
+            <th>
+                <div class="short-text">@message.ContactMessage.Substring(0, 10)</div>
+                <div class="full-text d-none">@message.ContactMessage</div>
+            
+            </th>
+
+
         <th>@message.DateSubmitted.ToShortDateString()</th>
         <th>@(message.Answered ? "answered" : "pending")</th>
                 <th>
@@ -48,7 +56,7 @@
                         Mark answered
                     </a>
                 </th>
-                <th><a href="management/delete?id=@message._id" class="btn btn-dark">Delete</a></th>
+                <th><a href="management/DeleteMessage?id=@message._id" class="btn btn-dark">Delete</a></th>
 
      </tr>
 }
@@ -56,8 +64,8 @@
     </tbody>
 </table>
 
-
 <script>
+
     $("#unanswered").click(function () {
         $.ajax({
             url: '@Url.Action("FilterMessages", "Management")',
@@ -71,6 +79,7 @@
             }
         });
     });
+
     $("#answered").click(function () {
         $.ajax({
             url: '@Url.Action("FilterMessages", "Management")',
@@ -84,6 +93,7 @@
             }
         });
     });
+
     $("#all").click(function () {
         $.ajax({
             url: '@Url.Action("FilterMessages", "Management")',
@@ -95,6 +105,13 @@
             error: function () {
                 alert("Error loading messages.");
             }
+        });
+    });
+
+    document.querySelectorAll('td').forEach(td => {
+        td.addEventListener('click', function () {
+            this.querySelector('.short-text').classList.toggle('d-none');
+            this.querySelector('.full-text').classList.toggle('d-none');
         });
     });
 

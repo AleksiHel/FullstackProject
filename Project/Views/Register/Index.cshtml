@@ -1,8 +1,8 @@
 ﻿@model User
 
 <div class="container-sm p-3 align-content-center" style="max-width: 500px;">
-    <h1 class="text-center fw-bold">Register account</h1>
-    <form asp-controller="Register" asp-action="Index" method="post" class="d-flex flex-column align-items-center">
+    <h1 class="text-center fw-bold mt-5">Register account</h1>
+    <form asp-controller="Register" asp-action="Index" method="post" class="d-flex flex-column align-items-center mt-5">
         <div class="form-group p-1">
             <label asp-for="Username" class="form-label">Username</label>
             <input asp-for="Username" class="form-control" />
@@ -11,7 +11,7 @@
             <label asp-for="Password" class="form-label">Password</label>
             <input asp-for="Password" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Register</button>
+        <button type="submit" class="btn btn-light p-2 mt-4 mb-2 fw-bold">Register</button>
     </form>
 
 

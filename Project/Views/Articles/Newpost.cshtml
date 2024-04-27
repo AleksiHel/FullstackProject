@@ -1,7 +1,7 @@
 ﻿@model Article
 
-
-<h1 class="mb-3">Create new post</h1>
+<div class="container-lg">
+<h1 class="mb-3 mt-5">Create new post</h1>
 <form asp-controller="Articles" asp-action="NewPost" method="post" class="d-flex flex-column">
 
 <div class="form-group p-1 col-xl-4  mb-3">
@@ -34,7 +34,7 @@
     <div class="container mt-3">
         <div class="row justify-content-between">
             <div class="col-auto">
-                <button type="submit" class="btn btn-dark p-2 mt-1 mb-2">Save</button>
+                <button type="submit" class="btn btn-light p-2 mt-1 mb-2">Save</button>
             </div>
 
         </div>
@@ -42,7 +42,8 @@
                        <div class="form-check">
 
     </div>
-</form>
+    </form>
+</div>
 <link href="~/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="~/js/froala_editor.pkgd.min.js"></script>
 <script>
