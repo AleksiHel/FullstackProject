@@ -8,32 +8,45 @@
 
 <a href="management/AddService"><button type="button" class="btn btn-light mb-3 justify-content-end">Add Service</button></a>
 
-<table class="table table-hover table-striped table-light">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="#">Name</th>
-            <th scope="#">Price</th>
-            <th scope="#">Description</th>
-            <th scope="#">Additional information</th>
-            <th scope="#">Function 1</th>
-            <th scope="#">Function 2</th>
+<div>
+    @foreach (var service in Model)
+    {
+        string contentShort = HtmlTruncator.TruncateHtml(service.ServiceDescription, 600);
 
-        </tr>
-    </thead>
-    <tbody>
 
-        @foreach (var message in Model)
-        {
-            <tr>
-                <th>@message.ServiceName</th>
-                <th>@message.ServicePrice</th>
-                <th>@message.ServiceDescription</th>
-                <th>@message.AdditionalInformation</th>
-                <th><a href="management/EditService?ServiceId=@message._id" class="btn btn-dark">Edit</a></th>
-                <th><a href="management/DeleteService?ServiceId=@message._id" class="btn btn-dark">Delete</a></th>
+        <div class="card mb-3 border-0 h-100 bg-white text-black">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    @if (service.ImagePath != null)
+                    {
+                        <img src="@service.ImagePath" class="card-img-top" alt="@service.ServiceName">
+                    }
+                    else
+                    {
+                        <img src="images/Services/default.webp" class="card-img-top" alt="default img">
+                    }
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>@service.ServiceName</strong></h5>
+                        <p class="card-text fw-bold"><small>Price: @service.ServicePrice €</small></p>
 
-            </tr>
-        }
 
-    </tbody>
-</table>
+                        <div class="ServiceTextFormat">
+
+                        <p class="card-text">@Html.Raw(contentShort)</p>
+                        <p class="card-text">@service.AdditionalInformation</p>
+                        </div>
+                        <p class="card-text">@service.ImagePath</p>
+
+
+                        <a href="management/EditService?ServiceId=@service._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
+                        <a href="management/DeleteService?ServiceId=@service._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Delete</button></a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

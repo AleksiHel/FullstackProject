@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
@@ -161,4 +162,10 @@ a {
 
 .ServiceTextFormat {
     white-space: pre-line;
+}
+
+
+.scrollable-card-body {
+    max-height: 300px; /* Adjust this value based on the typical height of the images or your design requirements */
+    overflow-y: auto;
 }

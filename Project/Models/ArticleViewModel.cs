@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Project.Models
 {
-    public class Article
+    public class ArticleViewModel
     {
+
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId _id { get; set; }
         [BsonRepresentation(BsonType.ObjectId)]
@@ -13,15 +14,12 @@ namespace Project.Models
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Content {  get; set; }
+        public string Content { get; set; }
         //[Required]
-        public bool IsPublic { get; set; } 
+        public bool IsPublic { get; set; }
         [Required]
         public DateTime PublishingDate { get; set; }
-        public string? Slug { get; set; }
-        public string ImagePath { get; set; }
 
-        
-
+        public IFormFile? TitleImage { get; set; }
     }
 }

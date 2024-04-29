@@ -9,6 +9,8 @@ namespace Project.Controllers
     [Route("Articles")]
     public class ArticlesController : Controller
     {
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
         [HttpGet("")]
         public IActionResult Index()
         {
@@ -16,28 +18,6 @@ namespace Project.Controllers
 
             return View(Articles);
         }
-
-
-        //public IActionResult Read(string ArticleName)
-        //{
-        //    if (ArticleName != null)
-        //    {
-
-        //        string notFormattedTitle = ArticleName.Replace("-", " ");
-
-        //        var ArticleMongo = DatabaseManipulator.GetByTitle<Article>(notFormattedTitle);
-
-        //        // no reading non public posts with get
-        //        if (ArticleMongo.IsPublic)
-        //        {
-        //            return View(ArticleMongo);
-
-        //        }
-
-        //    }
-
-        //    return RedirectToAction("");
-        //}
 
         [HttpGet("NewPost")]
         [Authorize(Roles = "admin")]
@@ -49,21 +29,41 @@ namespace Project.Controllers
 
         [HttpPost("NewPost")]
         [Authorize]
-        public async Task<IActionResult> NewPost(Article model)
+        public async Task<IActionResult> NewPost(ArticleViewModel model)
         {
-
-            model.Slug = new SlugHelper().GenerateSlug(model.Title);
-
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var check = DatabaseManipulator.GetBySlug<Article>(model.Slug);
+            var Slug = new SlugHelper().GenerateSlug(model.Title);
+            var check = DatabaseManipulator.GetBySlug<Article>(Slug);
 
             // No duplicate slugs or title
-            // kinda meh mebe fix
+            // kinda meh I'd rather use ids
+            // mebe fix
             if (check != null) { return View(model); };
+
+            var titleImage = model.TitleImage;
+            var imagePath = "";
+
+            if (titleImage != null && titleImage.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(titleImage.FileName);
+                var filePath = "wwwroot/images/Articles/" + fileName;
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await titleImage.CopyToAsync(stream);
+                }
+
+               imagePath = "images/Articles/" + fileName;
+            }
+            else
+            {
+                imagePath = "images/Articles/default.webp";
+            }
+
 
             var loggedInUserId = DatabaseManipulator.GetUsersID(User.Identity.Name);
 
@@ -74,7 +74,8 @@ namespace Project.Controllers
                 Content = model.Content,
                 PublishingDate = model.PublishingDate,
                 IsPublic = model.IsPublic,
-                Slug = model.Slug
+                Slug = Slug,
+                ImagePath = imagePath
             };
 
             DatabaseManipulator.Save(Article);

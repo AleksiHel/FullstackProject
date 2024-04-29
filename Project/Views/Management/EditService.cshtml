@@ -1,16 +1,19 @@
-﻿@model Service
-
+﻿@model ServiceViewModel
 
 <div class="container-sm p-3">
-    <h1 class=" fw-bold mt-5">Create new service</h1>
-    <form asp-controller="Management" asp-action="EditService" method="post" class="align-content-lg-end">
-
-        <input asp-for="_id" type="hidden" value="@Model._id">
-
+    <h1 class=" fw-bold mt-5">Edit Service</h1>
+    <form asp-controller="Management" asp-action="EditService" method="post" class="align-content-lg-end" enctype="multipart/form-data" accept-charset="image/*">
         <div class="form-group p-1">
             <label asp-for="ServiceName" class="form-label">Service name</label>
             <input asp-for="ServiceName" class="form-control" />
             <span asp-validation-for="ServiceName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1 col-xl-4 mb-3">
+            <label asp-for="TitleImage" class="mb-3"><strong>Title Image</strong></label>
+            <input asp-for="TitleImage" type="file" class="form-control" id="titleImage" name="TitleImage" accept="image/*">
+            <span asp-validation-for="TitleImage" class="text-danger"></span>
+            <div id="imagePreview" class="mt-3"></div>
         </div>
 
         <div class="form-group p-1">

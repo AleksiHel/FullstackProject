@@ -1,4 +1,4 @@
-﻿@model Article
+﻿@model ArticleViewModel
 
 
 <div class="container-fluid"></div>
@@ -7,7 +7,7 @@
 <div class="container-lg mt-5">
     <h1 class="mb-3">Edit post</h1>
 
-<form asp-controller="Management" asp-action="EditArticle" method="post" class="d-flex flex-column">
+    <form asp-controller="Management" asp-action="EditArticle" method="post" class="d-flex flex-column" enctype="multipart/form-data" accept-charset="image/*">
     <input asp-for="_id" type="hidden" value="@Model._id">
     <input asp-for="AuthorId" type="hidden" value="@Model.AuthorId"/>
 
@@ -17,6 +17,13 @@
         <input asp-for="Title" class="form-control input-lg" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
+
+        <div class="form-group p-1 col-xl-4 mb-3">
+            <label asp-for="TitleImage" class="mb-3"><strong>Title Image</strong></label>
+            <input asp-for="TitleImage" type="file" class="form-control" id="titleImage" name="TitleImage" accept="image/*">
+            <span asp-validation-for="TitleImage" class="text-danger"></span>
+            <div id="imagePreview" class="mt-3"></div>
+        </div>
 
     <div class="form-group p-1 col-xl-2">
         <label asp-for="PublishingDate" class="mb-3"><strong>Choose publishing date</strong></label>
@@ -75,4 +82,20 @@
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
     });
+
+    document.getElementById('titleImage').onchange = event => {
+        const [file] = event.target.files;
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result;
+                imgElement.style.maxWidth = '300px'; // Set the desired display size
+                imgElement.style.maxHeight = '300px';
+                document.getElementById('imagePreview').innerHTML = ''; // Clear previous previews
+                document.getElementById('imagePreview').appendChild(imgElement);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 </script>

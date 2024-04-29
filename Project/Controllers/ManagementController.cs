@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Project.Models;
+using Slugify;
 
 namespace Project.Controllers
 {
@@ -108,7 +109,7 @@ namespace Project.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> AddService(Service model)
+        public async Task<IActionResult> AddService(ServiceViewModel model)
         {
 
             if (!ModelState.IsValid)
@@ -116,7 +117,39 @@ namespace Project.Controllers
                 return View(model);
             }
 
-            DatabaseManipulator.Save(model);
+
+            var titleImage = model.TitleImage;
+            var imagePath = "";
+
+            if (titleImage != null && titleImage.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(titleImage.FileName);
+                var filePath = "wwwroot/images/Services/" + fileName;
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await titleImage.CopyToAsync(stream);
+                }
+
+                imagePath = "images/Services/" + fileName;
+
+            }
+            else
+            {
+                imagePath = "images/Services/default.webp";
+            }
+
+            var Service = new Service
+            {
+                ServiceName = model.ServiceName,
+                ServiceDescription = model.ServiceDescription,
+                ServicePrice = model.ServicePrice,
+                AdditionalInformation = model.AdditionalInformation,
+                ImagePath = imagePath
+            };
+
+
+            DatabaseManipulator.Save(Service);
 
             return RedirectToAction("index");
 
@@ -130,7 +163,16 @@ namespace Project.Controllers
             {
                 var service = DatabaseManipulator.GetById<Service>(ServiceId, "Service");
 
-                return View(service);
+                var ViewModel = new ServiceViewModel
+                {
+                    _id = service._id,
+                    ServiceName = service.ServiceName,
+                    ServiceDescription = service.ServiceDescription,
+                    ServicePrice = service.ServicePrice,
+                    AdditionalInformation = service.AdditionalInformation
+                };
+
+                return View(ViewModel);
             }
 
             return PartialView("_Services");
@@ -144,7 +186,19 @@ namespace Project.Controllers
             {
                 var article = DatabaseManipulator.GetById<Article>(articleID, "Article");
 
-                return View(article);
+                var ViewModel = new ArticleViewModel
+                {
+                    _id = article._id,
+                    AuthorId = article.AuthorId,
+                    Title = article.Title,
+                    Content = article.Content,
+                    IsPublic = article.IsPublic,
+                    PublishingDate = article.PublishingDate,
+                    TitleImage = null
+                };
+
+
+                return View(ViewModel);
             }
 
             return PartialView("_Articles");
@@ -152,31 +206,110 @@ namespace Project.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditService(Service model)
+        public async Task<IActionResult> EditService(ServiceViewModel model)
         {
-            if (!ModelState.IsValid)
+
+            var titleImage = model.TitleImage;
+            var imagePath = "";
+
+            if (titleImage != null && titleImage.Length > 0)
             {
-                return View(model);
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(titleImage.FileName);
+                var filePath = "wwwroot/images/Services/" + fileName;
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await titleImage.CopyToAsync(stream);
+                }
+
+                imagePath = "images/Services/" + fileName;
+
+            }
+            else if (titleImage == null)
+            {
+                var data = DatabaseManipulator.GetById<Service>(model._id, "Service");
+                imagePath = data.ImagePath;
+            }
+            // safety feature :-)
+            else
+            {
+                imagePath = "images/Services/default.webp";
             }
 
-            DatabaseManipulator.Save(model);
 
-            return RedirectToAction("index");
+            var Service = new Service
+            {
+                _id = model._id,
+                ServiceName = model.ServiceName,
+                ServiceDescription = model.ServiceDescription,
+                ServicePrice = model.ServicePrice,
+                AdditionalInformation = model.AdditionalInformation,
+                ImagePath = imagePath
+
+            };
+
+            DatabaseManipulator.Save(Service);
+
+            return RedirectToAction("");
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditArticle(Article model)
+        public async Task<IActionResult> EditArticle(ArticleViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            DatabaseManipulator.Save(model);
+            var Slug = new SlugHelper().GenerateSlug(model.Title);
 
-            return RedirectToAction("index");
+            var titleImage = model.TitleImage;
+            var imagePath = "";
+
+            if (titleImage != null && titleImage.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(titleImage.FileName);
+                var filePath = "wwwroot/images/Articles/" + fileName;
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await titleImage.CopyToAsync(stream);
+                }
+
+                imagePath = "images/Articles/" + fileName;
+
+            } else if (titleImage == null)
+            {
+                var data = DatabaseManipulator.GetById<Article>(model._id, "Article");
+                imagePath = data.ImagePath;
+            }
+            // safety feature :-)
+            else
+            {
+                imagePath = "images/Articles/default.webp";
+            }
+
+
+            var Article = new Article
+            {
+                _id = model._id,
+                AuthorId = model.AuthorId,
+                Title = model.Title,
+                Content = model.Content,
+                PublishingDate = model.PublishingDate,
+                IsPublic = model.IsPublic,
+                Slug = Slug,
+                ImagePath = imagePath
+            };
+
+            DatabaseManipulator.Save(Article);
+
+            return RedirectToAction("");
         }
+
+
         [Authorize(Roles = "admin")]
 
         public IActionResult FilterMessages(string filter)

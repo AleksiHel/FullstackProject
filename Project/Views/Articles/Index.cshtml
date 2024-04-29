@@ -35,7 +35,13 @@
           
             <div class="card h-100 border-0 text-white bg-black">
                         <a href="@Url.Action("Read", new { slug = @x.Slug })">
-                            <img src="images/intro.webp" class="card-img-top" alt="...">
+                            @if (x.ImagePath != null)
+                            {
+                                <img src="@x.ImagePath" class="card-img-top" alt="@x.Title">
+
+                            } else {<img src="images/Articles/default.webp" class="card-img-top" alt="default title image Bill Gates"> }
+
+                            
                         </a>
                         <div class="card-body">
                     <h2 class="card-title">@titleShort</h2>

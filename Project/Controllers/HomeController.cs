@@ -17,8 +17,8 @@ namespace Project.Controllers
 
         public IActionResult Index()
         {
-            var Articles = DatabaseManipulator.GetAll<Article>("Article").Where(article => article.IsPublic && article.PublishingDate <= DateTime.Today).ToList();
-
+            // Arnold tier oneliner
+            var Articles = DatabaseManipulator.GetAll<Article>("Article").Where(article => article.IsPublic && article.PublishingDate <= DateTime.Today).ToList().OrderByDescending(x => x.PublishingDate);
 
             return View(Articles.Take(3).ToList());
         }

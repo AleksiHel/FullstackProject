@@ -17,7 +17,14 @@
         <div class="card mb-3 border-0 h-100 bg-white text-black">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="~/images/intro.webp" class="img-fluid rounded-start" alt="...">
+                    @if (article.ImagePath != null)
+                    {
+                        <img src="@article.ImagePath" class="card-img-top" alt="@article.Title">
+                    }
+                    else
+                    {
+                        <img src="images/Articles/default.webp" class="card-img-top" alt="default i">
+                    }
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

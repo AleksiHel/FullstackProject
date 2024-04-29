@@ -1,27 +1,15 @@
 ﻿@model MessageViewModel
 
 
-<div class="container text-white" style="max-width: 1000px">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="BsIcons">
-                <h1 class="mt-5 text-center">You can contact me at</h1>
-                <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-envelope-fill"></i>
+<div class="container-md text-center mt-5">
+    <h1>Contact</h1>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+</div>
 
-                </div>
-                <p class="mb-0 fs-4 text-center">Emailaddress@email.com</p>
+<div class="container-lg text-white" style="max-width: 600px">
 
-                <div class="d-flex align-items-center justify-content-center ">
-                    <i class="bi bi-instagram"></i>
-                </div>
-
-                <p class="mb-0 fs-4 text-center">DM@@Instagram handle</p>
-
-            </div>
 
             <form asp-controller="Contact" asp-action="Index" method="post">
-                <h3 class="mt-5 text-center">Or leave a message here</h3>
                 <div class="row mt-5">
                     <div class="col-md-6">
                         <div class="form-group mt-3">
@@ -49,7 +37,7 @@
                 <div class="form-group mt-3">
                     <label asp-for="Subject">I'm interested in...</label>
                     <Select asp-for="Subject" class="form-control mt-1" id="exampleFormControlInput1" placeholder="None">
-                        <option value="msg">Just a message</option>
+                        <option value="msg">Something else/just a message</option>
                         @foreach (var x in Model.Services)
                         {
                             @if (Model.Selected != null && Model.Selected == x.ServiceName)
@@ -63,7 +51,6 @@
                             }
                         }
                     </Select>
-                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-3">
                     <label asp-for="ContactMessage">Give me short description about your inquiry</label>
@@ -73,8 +60,6 @@
                 <button type="submit" class="btn btn-light mb-3 mt-3">Send</button>
             </form>
 
-        </div>
-    </div>
 </div>
 
 

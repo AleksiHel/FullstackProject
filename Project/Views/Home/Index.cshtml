@@ -8,8 +8,9 @@
 <div class="bg-image container-fluid align-content-center text-center">
     <h1 class="fw-bolder lead fs-1">Professional photography for your needs</h1>
     <h2 class="lead fs-2">We believe being the best is not enough</h2>
-    <i class="bi bi-caret-down-fill fs-1"></i>
-
+    <div class="ScrollEffect">
+        <i class="bi bi-caret-down-fill fs-1"></i>
+    </div>
 
 </div>
 
@@ -39,7 +40,7 @@
 </div>
 </div>
 
-    <div class="row p-5 justify-content-center mt-5" >
+    <div class="row p-5 justify-content-center mt-2" >
 
         
         <div class="col-xxl-3 text-black bg-white rounded-1 p-3 mb-3 align-content-center custom-section me-3">
@@ -60,8 +61,8 @@
 <div class="container mt-5 text-white">
     @if (Model.Count > 0)
     {
-        <h2 class="text-center border-bottom">Latest articles</h2>
-        <div class="row row-cols-1 row-cols-lg-3 g-4 mt-5">
+        <h3 class="mt-4">Latest articles</h3>
+        <div class="row row-cols-1 row-cols-lg-3 g-4 mt-1">
 
             @foreach (var x in Model)
             {
@@ -75,7 +76,8 @@
                 <div class="col">
                     <div class="card h-100 border-0 text-white bg-black">
                         <a href="@Url.Action("Read", "Articles", new { slug = @x.Slug })">
-                            <img src="images/intro.webp" class="card-img-top" alt="...">
+                            @if (x.ImagePath != null) {<img src="@x.ImagePath" class="card-img-top" alt="@x.Title">}
+                            else { <img src="images/Articles/default.webp" class="card-img-top" alt="default i"> }
                         </a>
                         <div class="card-body">
                             <h2 class="card-title">@titleShort</h2>
@@ -94,12 +96,15 @@
         <p>No articles found!</p>
     }
     </div>
-
 <div class="container-fluid mt-5">
+
     <div class="row alignt-content-center justify-content-center">
-        <div class="col-10">
-<div class="elfsight-app-42fc9609-6015-469b-806b-2bc95ee09ff5" data-elfsight-app-lazy></div>
-    </div>
+
+        <div class="col-8">
+            <h3>Instagram</h3>
+            <div class="elfsight-app-42fc9609-6015-469b-806b-2bc95ee09ff5 mt-3" data-elfsight-app-lazy></div>
+        </div>
     </div>
 </div>
+
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>

@@ -1,10 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System.ComponentModel.DataAnnotations;
 
 namespace Project.Models
 {
-    public class Service
+    public class ServiceViewModel
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId _id { get; set; }
@@ -20,10 +20,8 @@ namespace Project.Models
 
         public double ServicePrice { get; set; }
 
-
         public string? AdditionalInformation { get; set; }
-
-        public string? ImagePath { get; set; }
+        public IFormFile? TitleImage { get; set; }
 
     }
 }
