@@ -95,7 +95,6 @@ namespace Project.Models
             }
 
             return record;
-
         }
         public static List<T> GetAll<T>(string table)
         {

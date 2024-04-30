@@ -24,12 +24,22 @@ namespace Project.Controllers
             return View(ViewModel);
         }
 
+        [HttpPost]
         [Authorize(Roles = "admin")]
-        public ActionResult DeleteMessage(ObjectId id)
+        public ActionResult DeleteMessage(string MessageId)
         {
-            DatabaseManipulator.Delete(DatabaseManipulator.GetById<Message>(id, "Message"));
-            return RedirectToAction("index");
+            var objectId = new ObjectId(MessageId);
+            var service = DatabaseManipulator.GetById<Message>(objectId, "Message");
+
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            DatabaseManipulator.Delete(service);
+            return RedirectToAction("Index"); // Redirect to the index view or wherever is appropriate
         }
+
 
         [Authorize(Roles = "admin")]
 
@@ -50,29 +60,44 @@ namespace Project.Controllers
         public IActionResult ManageArticles()
         {
             var articles = DatabaseManipulator.GetAll<Article>("Article");
-            
+
             var ViewModel = new ManagementViewModel { Articles = articles };
 
             return PartialView("_Articles", ViewModel);
         }
 
-        public ActionResult DeleteArticle(ObjectId ArticleID)
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult DeleteService(string ServiceId)
         {
+            var objectId = new ObjectId(ServiceId);
+            var service = DatabaseManipulator.GetById<Service>(objectId, "Service");
 
+            if (service == null)
+            {
+                return NotFound();
+            }
 
-            DatabaseManipulator.Delete(DatabaseManipulator.GetById<Article>(ArticleID, "Article"));
-
-            return RedirectToAction("index");
+            DatabaseManipulator.Delete(service);
+            return RedirectToAction("Index"); // Redirect to the index view or wherever is appropriate
         }
 
-        public ActionResult DeleteService(ObjectId ServiceId)
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult DeleteArticle(string ArticleId)
         {
+            var objectId = new ObjectId(ArticleId);
+            var service = DatabaseManipulator.GetById<Article>(objectId, "Article");
 
+            if (service == null)
+            {
+                return NotFound();
+            }
 
-            DatabaseManipulator.Delete(DatabaseManipulator.GetById<Service>(ServiceId, "Service"));
-
-            return RedirectToAction("index");
+            DatabaseManipulator.Delete(service);
+            return RedirectToAction("Index"); // Redirect to the index view or wherever is appropriate
         }
+
 
 
         [Authorize(Roles = "admin")]
@@ -309,9 +334,9 @@ namespace Project.Controllers
             return RedirectToAction("");
         }
 
-
+        [HttpPost]
         [Authorize(Roles = "admin")]
-
+        
         public IActionResult FilterMessages(string filter)
         {
             List<Message> messages = new List<Message>();
@@ -347,6 +372,7 @@ namespace Project.Controllers
             return PartialView("_Messages", ViewModel);
         }
 
+        [HttpPost]
         [Authorize(Roles = "admin")]
 
         public IActionResult FilterArticles(string filter)
@@ -408,6 +434,10 @@ namespace Project.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult EditMessage(ObjectId msgId)
+        {
+            return View(DatabaseManipulator.GetById<Message>(msgId, "Message"));
+        }
 
     }
 }

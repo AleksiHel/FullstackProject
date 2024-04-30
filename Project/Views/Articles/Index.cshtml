@@ -20,39 +20,37 @@
     }
 @if (Model.Count > 0)
 {
-    <div class="row row-cols-1 row-cols-lg-@testi g-4 mt-5">
+        <div class="row row-cols-1 row-cols-lg-@testi g-4 mt-5">
+            @foreach (var x in Model)
+            {
+                string imageClass = Model.Count == 1 ? "card-img-top-single" : "card-img-top";
+                string contentShort = HtmlTruncator.TruncateHtml(x.Content, 390);
+                string titleShort = HtmlTruncator.TruncateHtml(x.Title, 45);
+                string titleFormatted = x.Title.Replace(" ", "-");
 
-    @foreach (var x in Model)
-        {
-
-
-            string contentShort = HtmlTruncator.TruncateHtml(x.Content, 390);
-            string titleShort = HtmlTruncator.TruncateHtml(x.Title, 45);
-            string titleFormatted = x.Title.Replace(" ", "-");
-
-
-        <div class="col">
-          
-            <div class="card h-100 border-0 text-white bg-black">
+                <div class="col">
+                    <div class="card h-100 border-0 text-white bg-black">
                         <a href="@Url.Action("Read", new { slug = @x.Slug })">
                             @if (x.ImagePath != null)
                             {
-                                <img src="@x.ImagePath" class="card-img-top" alt="@x.Title">
-
-                            } else {<img src="images/Articles/default.webp" class="card-img-top" alt="default title image Bill Gates"> }
-
-                            
+                                <img src="@x.ImagePath" class="@imageClass" alt="@x.Title">
+                            }
+                            else
+                            {
+                                <img src="images/Articles/default.webp" class="@imageClass" alt="default title image">
+                            }
                         </a>
                         <div class="card-body">
-                    <h2 class="card-title">@titleShort</h2>
-                    <p class="lead">@x.PublishingDate.ToShortDateString()</p>
-                    <p class="card-text">@Html.Raw(@contentShort)</p>
-                        <a href="@Url.Action("Read", new { slug = @x.Slug })" class="btn btn-light fw-bold">Read</a>
+                            <h2 class="card-title">@titleShort</h2>
+                            <p class="lead">@x.PublishingDate.ToShortDateString()</p>
+                            <p class="card-text">@Html.Raw(@contentShort)</p>
+                            <a href="@Url.Action("Read", new { slug = @x.Slug })" class="btn btn-light fw-bold">Read</a>
+                        </div>
                     </div>
-            </div>
+                </div>
+            }
         </div>
-    }
-</div>
+
 
 } else {<p>No articles found!</p>}
 

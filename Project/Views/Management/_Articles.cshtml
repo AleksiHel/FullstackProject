@@ -43,8 +43,10 @@
 
                         <p class="card-text">@Html.Raw(contentShort)</p>
                         <a href="management/EditArticle?articleId=@article._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
-                        <a href="management/DeleteArticle?articleId=@article._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Delete</button></a>
-
+                        <form method="post" action="/management/DeleteArticle">
+                            <input type="hidden" name="ArticleId" value="@article._id" />
+                            <button type="submit" class="btn btn-dark mb-3 justify-content-end">Delete</button>
+                        </form>
 
                     </div>
                 </div>
@@ -62,7 +64,7 @@
     $("#notpublic").click(function () {
         $.ajax({
             url: '@Url.Action("FilterArticles", "Management")',
-            type: 'GET',
+            type: 'POST',
             data: { filter: 'notpublic' }, // Pass the filter parameter
             success: function (data) {
                 $('#render-container').html(data);
@@ -76,7 +78,7 @@
         $("#public").click(function () {
         $.ajax({
             url: '@Url.Action("FilterArticles", "Management")',
-            type: 'GET',
+            type: 'POST',
             data: { filter: 'public' }, // Pass the filter parameter
             success: function (data) {
                 $('#render-container').html(data);
@@ -90,7 +92,7 @@
     $("#all").click(function () {
         $.ajax({
             url: '@Url.Action("FilterArticles", "Management")',
-            type: 'GET',
+            type: 'POST',
             data: { filter: 'all' }, // Pass the filter parameter
             success: function (data) {
                 $('#render-container').html(data);

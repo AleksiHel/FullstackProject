@@ -1,11 +1,5 @@
 ﻿@model List<Service>
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
 <a href="management/AddService"><button type="button" class="btn btn-light mb-3 justify-content-end">Add Service</button></a>
 
 <div>
@@ -41,7 +35,10 @@
 
 
                         <a href="management/EditService?ServiceId=@service._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
-                        <a href="management/DeleteService?ServiceId=@service._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Delete</button></a>
+                        <form method="post" action="/management/DeleteService">
+                            <input type="hidden" name="ServiceId" value="@service._id" />
+                            <button type="submit" class="btn btn-dark mb-3 justify-content-end">Delete</button>
+                        </form>
 
 
                     </div>

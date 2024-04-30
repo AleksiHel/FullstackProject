@@ -29,7 +29,6 @@
             <th scope="#">Date</th>
             <th scope="#">Status</th>
             <th scope="#">Function</th>
-            <th scope="#">Function2</th>
     </tr>
     </thead>
     <tbody>
@@ -40,23 +39,28 @@
             <th>@message.FullName</th>
             <th>@message.Email</th>
             <th>@message.Subject</th>
-            <th>
-                <div class="short-text">@message.ContactMessage.Substring(0, 10)</div>
-                <div class="full-text d-none">@message.ContactMessage</div>
-            
-            </th>
+                <th>
+                    @if (@message.ContactMessage.Length < 60)
+                    {
+                        @message.ContactMessage
+                    }
+                     else
+                    {
+                                            <div class="short-text" title="@message.ContactMessage">
+                        @message.ContactMessage.Substring(0, 60)
+                    </div>
+                    }
+
+                </th>
+
 
 
         <th>@message.DateSubmitted.ToShortDateString()</th>
         <th>@(message.Answered ? "answered" : "pending")</th>
                 <th>
-                    <a href="@(message.Answered ? "#" : "management/markanswered?id=" + message._id)"
-                       class="btn btn-dark @(message.Answered ? "disabled" : "")"
-                       onclick="@(message.Answered ? "event.preventDefault();" : "")">
-                        Mark answered
-                    </a>
+                    <a href="management/EditMessage?msgId=@message._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
+
                 </th>
-                <th><a href="management/DeleteMessage?id=@message._id" class="btn btn-dark">Delete</a></th>
 
      </tr>
 }
@@ -69,7 +73,7 @@
     $("#unanswered").click(function () {
         $.ajax({
             url: '@Url.Action("FilterMessages", "Management")',
-            type: 'GET',
+            type: 'POST',
             data: { filter: 'unanswered' }, // Pass the filter parameter
             success: function (data) {
                 $('#render-container').html(data);
@@ -83,7 +87,7 @@
     $("#answered").click(function () {
         $.ajax({
             url: '@Url.Action("FilterMessages", "Management")',
-            type: 'GET',
+            type: 'POST',
             data: { filter: 'answered' }, // Pass the filter parameter
             success: function (data) {
                 $('#render-container').html(data);
@@ -97,7 +101,7 @@
     $("#all").click(function () {
         $.ajax({
             url: '@Url.Action("FilterMessages", "Management")',
-            type: 'GET',
+            type: 'POST',
             data: { filter: 'all' }, // Pass the filter parameter
             success: function (data) {
                 $('#render-container').html(data);
@@ -108,11 +112,5 @@
         });
     });
 
-    document.querySelectorAll('td').forEach(td => {
-        td.addEventListener('click', function () {
-            this.querySelector('.short-text').classList.toggle('d-none');
-            this.querySelector('.full-text').classList.toggle('d-none');
-        });
-    });
 
 </script>

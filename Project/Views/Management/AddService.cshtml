@@ -40,6 +40,9 @@
             <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-light p-2 mt-1 mb-2">Add</button>
+        <div class="d-flex justify-content-between mt-2">
+            <button type="submit" class="btn btn-light p-2">Save</button>
+            <button class="btn btn-light" type="button" onclick="window.history.back();">Go Back</button>
+        </div>
     </form>
 </div>

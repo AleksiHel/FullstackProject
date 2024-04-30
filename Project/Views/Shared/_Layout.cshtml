@@ -18,14 +18,19 @@
 
     {
             <div class="d-flex justify-content-end text-white">
-                <p class="me-5">Logged in as: <strong>@(User.Identity.Name)</strong></p>
+                <p class="me-3">Logged in as: <strong>@(User.Identity.Name)</strong></p>
+
+
+            </div>
+                        <div class="d-flex justify-content-end text-white">
+
             <form asp-controller="Home" asp-action="Logout" method="get">
-                <a href="javascript:;" class="me-2" onclick="this.closest('form').submit();" style="text-decoration: none; color: inherit;">
+                <a href="javascript:;" class="me-3" onclick="this.closest('form').submit();" style="text-decoration: none; color: inherit;">
                     Logout
                 </a>
             </form>
+                        </div>
 
-            </div>
     }
     <header>
 <nav class="navbar navbar-expand-lg navbar-dark bg-black fs-5 sticky-top">

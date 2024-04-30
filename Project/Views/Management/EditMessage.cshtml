@@ -1,0 +1,34 @@
+﻿@model Message
+
+
+<div class="container-lg mt-5">
+<h1 class="mt-5">Message</h1>                 
+
+
+<p>Name: @Model.FullName</p>
+<p>Date: @Model.DateSubmitted.ToShortDateString()</p>
+<p>Email: @Model.Email</p>
+<p>Subject: @Model.Subject</p>
+<p>Message: @Model.ContactMessage</p>
+<p>Status: @(Model.Answered ? "Answered" : "Not answered")</p>
+
+
+    <a href="@(Model.Answered ? "#" : "/management/markanswered?id=" + Model._id)"
+       class="btn btn-light mt-3 @(Model.Answered ? "disabled " : "")"
+       onclick="@(Model.Answered ? "event.preventDefault();" : "")">
+        Mark answered
+    </a>
+
+
+    <form method="post" action="/management/DeleteMessage">
+        <input type="hidden" name="MessageId" value="@Model._id" />
+        <button type="submit" class="btn btn-light mt-3 justify-content-end">Delete</button>
+    </form>
+    <button class="btn btn-light mt-3" type="button" onclick="window.history.back();">Go Back</button>
+
+</div>
+
+
+
+
+
