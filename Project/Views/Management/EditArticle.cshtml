@@ -49,12 +49,45 @@
         <div class="row">
             <div class="col text-right">
                 <button type="submit" class="btn btn-light p-2 mt-1 mb-2">Save</button>
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete
+                </button>
+
                 <button class="btn btn-light mt-1" type="button" onclick="window.history.back();">Go Back</button>
             </div>
         </div>
 
     </form>
+
+
+
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">@Model.Title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-black text-center fw-bold">Are you sure you want to delete?</p>
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form method="post" action="/management/DeleteArticle">
+                    <input type="hidden" name="ArticleId" value="@Model._id" />
+                    <button type="submit" class="btn btn-dark mb-3 justify-content-end">Delete</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 <link href="~/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="~/js/froala_editor.pkgd.min.js"></script>
 <script>

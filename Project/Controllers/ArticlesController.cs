@@ -17,7 +17,11 @@ namespace Project.Controllers
             var Articles = DatabaseManipulator.GetAll<Article>("Article").Where(article => article.IsPublic && article.PublishingDate <= DateTime.Today).ToList();
 
             return View(Articles);
+
+
         }
+
+
 
         [HttpGet("NewPost")]
         [Authorize(Roles = "admin")]

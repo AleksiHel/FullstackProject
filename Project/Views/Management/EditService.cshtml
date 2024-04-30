@@ -36,7 +36,38 @@
 
         <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-light p-2">Save</button>
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Delete
+            </button>
             <button class="btn btn-light" type="button" onclick="window.history.back();">Go Back</button>
         </div>
+        <!-- Button trigger modal -->
+
+
     </form>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">@Model.ServiceName</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-black">Are you sure you want to delete?</p>
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form method="post" action="/management/DeleteService">
+                    <input type="hidden" name="ServiceId" value="@Model._id" />
+                    <button type="submit" class="btn btn-dark mb-3 justify-content-end">Delete</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </div>

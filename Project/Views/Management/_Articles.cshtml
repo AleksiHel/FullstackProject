@@ -43,11 +43,6 @@
 
                         <p class="card-text">@Html.Raw(contentShort)</p>
                         <a href="management/EditArticle?articleId=@article._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
-                        <form method="post" action="/management/DeleteArticle">
-                            <input type="hidden" name="ArticleId" value="@article._id" />
-                            <button type="submit" class="btn btn-dark mb-3 justify-content-end">Delete</button>
-                        </form>
-
                     </div>
                 </div>
             </div>
