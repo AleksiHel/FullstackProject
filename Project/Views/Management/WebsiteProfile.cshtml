@@ -3,6 +3,13 @@
 <div class="container-md p-3 align-content-center">
     <h1 class=" fw-bold mt-5">Website profile</h1>
     <form asp-controller="Management" asp-action="WebsiteProfile" method="post" class="align-content-lg-end">
+
+        @if (Model != null)
+        {
+          <input asp-for="_id" type="hidden" value="@Model._id">
+
+        }
+
         <div class="form-group p-1 col-xl-4">
             <label asp-for="Firstname" class="form-label">First name</label>
             <input asp-for="Firstname" class="form-control" />
@@ -34,12 +41,18 @@
         </div>
 
         <div class="form-group p-1 col-xl-4">
+            <label asp-for="Biography" class="form-label">Biography</label>
+            <textarea asp-for="Biography" class="form-control" rows="2"> </textarea>
+            <span asp-validation-for="Biography" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1 col-xl-4">
             <label asp-for="Palmares" class="form-label">Palmares</label>
             <textarea asp-for="Palmares" class="form-control" rows="2"> </textarea>
             <span asp-validation-for="Palmares" class="text-danger"></span>
         </div>
 
 
-        <button type="submit" class="btn btn-light p-2 mt-1 mb-2">Add</button>
+        <button type="submit" class="btn btn-light p-2 mt-1 mb-2">Save</button>
     </form>
 </div>

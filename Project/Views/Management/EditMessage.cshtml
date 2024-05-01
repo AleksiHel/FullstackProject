@@ -2,7 +2,7 @@
 
 
 <div class="container-lg mt-5">
-<h1 class="mt-5">Message</h1>                 
+<h1 class="mt-2">Message</h1>                 
 
 
 <p>Name: @Model.FullName</p>
@@ -18,7 +18,8 @@
        onclick="@(Model.Answered ? "event.preventDefault();" : "")">
         Mark answered
     </a>
-    <button class="btn btn-light mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
+    <br />
+    <button class="btn btn-light mt-3 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
 
 
     <button class="btn btn-light mt-3" type="button" onclick="window.history.back();">Go Back</button>
@@ -38,14 +39,16 @@
             <div class="modal-body">
                 <p class="text-black text-center fw-bold">Are you sure you want to delete?</p>
 
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <form method="post" action="/management/DeleteMessage">
-                    <input type="hidden" name="MessageId" value="@Model._id" />
-                    <button type="submit" class="btn btn-light mt-3 justify-content-end">Delete</button>
-                </form>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                    <form method="post" action="/management/DeleteMessage" class="d-inline">
+                        <input type="hidden" name="MessageId" value="@Model._id" />
+                        <button type="submit" class="btn btn-dark">Delete</button>
+                    </form>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
+
 

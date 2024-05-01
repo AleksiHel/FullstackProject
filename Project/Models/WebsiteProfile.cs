@@ -18,11 +18,13 @@ namespace Project.Models
         public string PhoneNumber {  get; set; }
         [Required]
         public string PageName { get; set; }
+        public string Biography { get; set; }
 
         public string Palmares { get; set;}
 
-        public Dictionary<string, string> Socials { get; set; }
-        
+        public Dictionary<string, string> Socials { get; set; } = new Dictionary<string, string>();
+
+
 
 
     }

@@ -23,18 +23,17 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><strong>@service.ServiceName</strong></h5>
-                        <p class="card-text fw-bold"><small>Price: @service.ServicePrice €</small></p>
+                        <p class="card-text fw-bold" id="ServiceCardFormat"><small>Price: @service.ServicePrice €</small></p>
 
 
-                        <div class="ServiceTextFormat">
+                        <div class="ServiceTextFormatCard">
 
                         <p class="card-text">@Html.Raw(contentShort)</p>
                         <p class="card-text">@service.AdditionalInformation</p>
                         </div>
-                        <p class="card-text">@service.ImagePath</p>
 
 
-                        <a href="management/EditService?ServiceId=@service._id"><button type="button" class="btn btn-dark mb-3 justify-content-end">Edit</button></a>
+                        <a href="management/EditService?ServiceId=@service._id"><button type="button" class="btn btn-dark justify-content-end mt-3">Edit</button></a>
 
 
                     </div>
