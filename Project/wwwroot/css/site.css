@@ -119,7 +119,7 @@ a {
     position: relative;
     width: 100%;
     height: calc(100vh - 80px); /* This will adjust dynamically */
-    background-image: url("/images/BGIMG.jpg");
+    background-image: url("/images/BGIMG.webp");
     background-size: cover; /* 100% width and auto height to maintain aspect ratio */
     background-position: center center; /* Aligns the image at the top center */
     background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -169,4 +169,6 @@ a {
     max-height: 300px; /* Adjust this value based on the typical height of the images or your design requirements */
     overflow-y: auto;
 }
+
+
 

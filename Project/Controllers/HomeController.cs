@@ -19,8 +19,15 @@ namespace Project.Controllers
         {
             // Arnold tier oneliner
             var Articles = DatabaseManipulator.GetAll<Article>("Article").Where(article => article.IsPublic && article.PublishingDate <= DateTime.Today).ToList().OrderByDescending(x => x.PublishingDate);
+            var Services = DatabaseManipulator.GetAll<Service>("Service");
 
-            return View(Articles.Take(3).ToList());
+            var ViewModel = new HomeViewModel
+            {
+                Services = Services,
+                Articles = Articles.Take(3).ToList(),
+            };
+
+            return View(ViewModel);
         }
 
         public IActionResult Privacy()

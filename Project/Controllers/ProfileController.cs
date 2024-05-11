@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project.Models;
 
 namespace Project.Controllers
 {
@@ -6,7 +7,17 @@ namespace Project.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var websiteprofile = DatabaseManipulator.GetAll<WebsiteProfile>("WebsiteProfile");
+
+            try
+            {
+                return View(websiteprofile[0]);
+
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
     }
 }

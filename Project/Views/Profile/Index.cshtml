@@ -1,41 +1,81 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model WebsiteProfile
 <h1 class="text-center mt-5">About</h1>
+
+
 
 <div class="container-lg mt-5">
     <img src="~/images/Person2.jpg" class="d-block mx-lg-auto img-fluid" alt="placeholder" style="width: 60vh"/>
 </div>
 
 
+<div class="row p-5 justify-content-center mt-2 ServiceTextFormat">
+
+
+    <div class="col-xxl-5 text-black bg-white rounded-1 p-3 mb-3 align-content-center me-3">
+        <h1>@Model.Firstname @Model.Lastname</h1>
+        <p class="fs-5 p-3">
+            @Model.Biography
+        </p>
+
+
+    </div>
+    <div class="col-xxl-5 rounded-1 p-3 mb-3 align-content-center me-3">
+        <h1>Palmares</h1>
+        <p class="fs-5 p-3">
+            @Model.Palmares
+        </p>
+
+    </div>
+</div>
+
+
             <div class="container-lg col-m-8">
 
-                <div class="row flex-lg align-items-center shadow g-5 py-5">
+                <div class="row flex-lg align-items-center g-5 py-5">
                     <h2 class="border-bottom">Socials</h2>
-                    <div class="col-lg-4 text-center">
-                        <i class="bi bi-linkedin me-3 fs-1"></i>
-                        <br />
-                        <br />
-                        <a class="text-white fw-bold fs-5"
-                            href="https://www.linkedin.com">
-                            Kova Tyyppi </a>
-                    </div>
-                    <div class="col-lg-4 text-center">
-                        <i class="bi bi-envelope me-3 fs-1"></i>
-                        <br />
-                        <br />
-                        <a class="text-white fw-bold fs-5"
-                            href="mailto:email@kovaosoito@@asdf.fi">example@@email.com </a>
-                    </div>
+
+                    @if (Model.InstagramHandle != null) {
                     <div class="col-lg-4 text-center">
                         <i class="bi bi-instagram me-3 fs-1"></i>
                         <br />
                         <br />
                         <a class="text-white fw-bold fs-5"
-                            href="https://www.instagram.com/">@@instagramhandle</a>
-                    </div>
+                            href="https://www.instagram.com/@Model.InstagramHandle">@@ @Model.InstagramHandle</a>
+            </div>
+        }
+
+        @if (Model.LinkedinHandle != null)
+        {
+            <div class="col-lg-4 text-center">
+                <i class="bi bi-Linkedin me-3 fs-1"></i>
+                <br />
+                <br />
+                <a class="text-white fw-bold fs-5"
+                   href="https://www.linkedin.com/@Model.LinkedinHandle">@@ @Model.LinkedinHandle</a>
+            </div>
+        }
+
+        @if (Model.FacebookHandle != null)
+        {
+            <div class="col-lg-4 text-center">
+                <i class="bi bi-Facebook me-3 fs-1"></i>
+                <br />
+                <br />
+                <a class="text-white fw-bold fs-5"
+                   href="https://www.facebook.com/@Model.FacebookHandle">@@ @Model.FacebookHandle</a>
+            </div>
+        }
+
+        @if (Model.YoutubeHandle != null)
+        {
+            <div class="col-lg-4 text-center">
+                <i class="bi bi-youtube me-3 fs-1"></i>
+                <br />
+                <br />
+                <a class="text-white fw-bold fs-5"
+                   href="https://www.youtube.com/@@@Model.YoutubeHandle">@@ @Model.YoutubeHandle</a>
+            </div>
+        }
             </div>
         
             </div>

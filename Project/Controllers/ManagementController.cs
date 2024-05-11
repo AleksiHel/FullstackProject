@@ -416,7 +416,18 @@ namespace Project.Controllers
 
         public IActionResult WebsiteProfile()
         {
-            return View();
+            var websiteprofile = DatabaseManipulator.GetAll<WebsiteProfile>("WebsiteProfile");
+
+            try
+            {
+                return View(websiteprofile[0]);
+
+            } 
+            catch (Exception ex)
+            {
+                return View();
+            }
+
         }
 
         [HttpPost]

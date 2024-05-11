@@ -6,7 +6,8 @@
 
         @if (Model != null)
         {
-          <input asp-for="_id" type="hidden" value="@Model._id">
+          <input asp-for="_id" type="hidden" value="@Model._id" />
+          <input asp-for="UserId" type="hidden" value="@Model.UserId" />
 
         }
 
@@ -28,17 +29,6 @@
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
-        <div class="form-group p-1 col-xl-4">
-            <label asp-for="PhoneNumber" class="form-label">Phone</label>
-            <input asp-for="PhoneNumber" class="form-control" />
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        </div>
-
-        <div class="form-group p-1 col-xl-4">
-            <label asp-for="PageName" class="form-label">Page name</label>
-            <input asp-for="PageName" class="form-control" />
-            <span asp-validation-for="PageName" class="text-danger"></span>
-        </div>
 
         <div class="form-group p-1 col-xl-4">
             <label asp-for="Biography" class="form-label">Biography</label>
@@ -52,6 +42,31 @@
             <span asp-validation-for="Palmares" class="text-danger"></span>
         </div>
 
+        <h5 class="mt-2">Social media handles (leave empty if you don't want to show or have them)</h5>
+
+        <div class="form-group p-1 col-xl-4">
+            <label asp-for="InstagramHandle" class="form-label">Instagram</label>
+            <input asp-for="InstagramHandle" class="form-control" > </input>
+            <span asp-validation-for="InstagramHandle" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1 col-xl-4">
+            <label asp-for="FacebookHandle" class="form-label">Facebook</label>
+            <input asp-for="FacebookHandle" class="form-control" > </input>
+            <span asp-validation-for="FacebookHandle" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1 col-xl-4">
+            <label asp-for="LinkedinHandle" class="form-label">Linkedin</label>
+            <input asp-for="LinkedinHandle" class="form-control"> </input>
+            <span asp-validation-for="LinkedinHandle" class="text-danger"></span>
+        </div>
+
+        <div class="form-group p-1 col-xl-4">
+            <label asp-for="YoutubeHandle" class="form-label">Youtube</label>
+            <input asp-for="YoutubeHandle" class="form-control"> </input>
+            <span asp-validation-for="YoutubeHandle" class="text-danger"></span>
+        </div>
 
         <button type="submit" class="btn btn-light p-2 mt-1 mb-2">Save</button>
     </form>
